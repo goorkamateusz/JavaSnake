@@ -2,37 +2,40 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public abstract class GameBase implements Runnable {
-
+	
 	final int WIDTH_OF_WINDOW = 1000;
 	final int HEIGHT_OF_WINDOW = 700;
 
 	final long DESIRED_FPS = 60;
 	final long DESIRED_DELTA_LOOP = (1000 * 1000 * 1000) / DESIRED_FPS;
 
-	private boolean running = true;
+    private List<GameObject> gameObjects = new ArrayList<GameObject>();
+    private List<GameObject> newObjects = new ArrayList<GameObject>();
 
 	private JFrame frame;
 	private Canvas canvas;
 	private BufferStrategy bufferStrategy;
 
-	private List<MonoBehaviour> gameObjects;
-
+	private boolean running = true;
 	private float deltaTime;
 
 	public GameBase()
 	{
 		openWindow();
 
-		MonoBehaviour.gameBase = this;
-		gameObjects = MonoBehaviour.getGameObjects();
-
+		GameObject.gameBase = this;
 		awake();
+	}
+
+	public void initialize(GameObject gameObject) {
+		gameObject.awake();
+		newObjects.add(gameObject);
 	}
 
 	public void run() {
@@ -47,6 +50,7 @@ public abstract class GameBase implements Runnable {
 		while (running) {
 			beginLoopTime = System.nanoTime();
 
+			addNewObjects();
 			render();
 
 			lastUpdateTime = currentUpdateTime;
@@ -58,10 +62,7 @@ public abstract class GameBase implements Runnable {
 			endLoopTime = System.nanoTime();
 			deltaLoop = endLoopTime - beginLoopTime;
 
-			if (deltaLoop > DESIRED_DELTA_LOOP) {
-				// Do nothing. We are already late.
-			}
-			else {
+			if (deltaLoop < DESIRED_DELTA_LOOP) {
 				try {
 					Thread.sleep((DESIRED_DELTA_LOOP - deltaLoop) / (1000 * 1000));
 				}
@@ -72,6 +73,14 @@ public abstract class GameBase implements Runnable {
 		}
 
 		onDestroy();
+	}
+
+	public void finish() {
+		running = false;
+	}
+
+	public List<GameObject> getGameObjects() {
+		return gameObjects;
 	}
 
 	/**
@@ -85,7 +94,7 @@ public abstract class GameBase implements Runnable {
 	 * Awake method like Unity
 	 */
 	protected void awake() {
-		for (MonoBehaviour gameObject : gameObjects)
+		for (GameObject gameObject : gameObjects)
 			gameObject.awake();
 	}
 
@@ -93,7 +102,7 @@ public abstract class GameBase implements Runnable {
 	 * Start method like Unity
 	 */
 	protected void start() {
-		for (MonoBehaviour gameObject : gameObjects)
+		for (GameObject gameObject : gameObjects)
 			gameObject.start();
 	}
 
@@ -101,7 +110,7 @@ public abstract class GameBase implements Runnable {
 	 * Update method like Unity
 	 */
 	protected void update() {
-		for (MonoBehaviour gameObject : gameObjects)
+		for (GameObject gameObject : gameObjects)
 			gameObject.update();
 	}
 
@@ -109,7 +118,7 @@ public abstract class GameBase implements Runnable {
 	 * OnDestroy method like Unity
 	 */
 	protected void onDestroy() {
-		for (MonoBehaviour gameObject : gameObjects)
+		for (GameObject gameObject : gameObjects)
 			gameObject.onDestroy();
 	}
 
@@ -117,7 +126,7 @@ public abstract class GameBase implements Runnable {
 	 * Render method
 	 */
 	protected void render(Graphics2D g) {
-		for (MonoBehaviour gameObject : gameObjects)
+		for (GameObject gameObject : gameObjects)
 			gameObject.render(g);
 	}
 
@@ -127,6 +136,14 @@ public abstract class GameBase implements Runnable {
 		render(g);
 		g.dispose();
 		bufferStrategy.show();
+	}
+
+	private void addNewObjects() {
+		for (GameObject newObject : newObjects) {
+			gameObjects.add(newObject);
+			newObject.start();
+		}
+		newObjects.clear();
 	}
 
 	private void openWindow() {

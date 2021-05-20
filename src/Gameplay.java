@@ -1,9 +1,10 @@
 public class Gameplay extends GameBase {
 
-    /**
-     * SnakeGame constructor
-     */
-    public Gameplay() {
-        new TestSqrt();
+    @Override
+    protected void awake() {
+        initialize(new TestSqrt());
+        initialize(new TestSqrt());
+        initialize(new TestSqrt());
+        super.awake();
     }
 }
