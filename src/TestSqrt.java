@@ -1,15 +1,22 @@
-import java.awt.Graphics2D;
+import java.awt.Color;
 
-public class TestSqrt extends GameObject {
+public class TestSqrt extends Rectangle {
 
-    private float x;
     private float sign = 1;
     private int max = 600;
     private int min = -50;
 
     @Override
+    protected void awake() {
+        width = 40;
+        height = 40;
+        color = new Color(64, 64, 64);
+    }
+
+    @Override
     protected void start() {
-        x = (float) Math.floor(Math.random()*(max-min+1)+min);
+        x = (int) Math.floor(Math.random()*(max-min+1)+min);
+        y = (int) Math.floor(Math.random()*(max-min+1)+min);
     }
 
     @Override
@@ -20,7 +27,7 @@ public class TestSqrt extends GameObject {
             sign = -1;
             gameBase.initialize(new TestSqrt());
 
-            if (gameBase.getGameObjects().size() > 5)
+            if (gameBase.getGameObjects().size() > 20)
                 gameBase.finish();
 
         }
@@ -28,10 +35,5 @@ public class TestSqrt extends GameObject {
         {
             sign = 1;
         }
-    }
-
-    @Override
-    protected void render(Graphics2D g) {
-        g.fillRect((int) x, 0, 200, 200);
     }
 }
