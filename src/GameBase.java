@@ -17,6 +17,7 @@ public abstract class GameBase implements Runnable {
 
     private List<GameObject> gameObjects = new ArrayList<GameObject>();
     private List<GameObject> newObjects = new ArrayList<GameObject>();
+	private List<GameObject> objectsToDestroy = new ArrayList<GameObject>();
 
 	private JFrame frame;
 	private Canvas canvas;
@@ -28,14 +29,17 @@ public abstract class GameBase implements Runnable {
 	public GameBase()
 	{
 		openWindow();
-
-		GameObject.gameBase = this;
+		GameObject.game = this;
 		awake();
 	}
 
 	public void initialize(GameObject gameObject) {
 		gameObject.awake();
 		newObjects.add(gameObject);
+	}
+
+	public void destroy(GameObject gameObject) {
+		objectsToDestroy.add(gameObject);
 	}
 
 	public void run() {
@@ -51,11 +55,12 @@ public abstract class GameBase implements Runnable {
 			beginLoopTime = System.nanoTime();
 
 			addNewObjects();
+			destroyObjects();
 			render();
 
 			lastUpdateTime = currentUpdateTime;
 			currentUpdateTime = System.nanoTime();
-			deltaTime = (currentUpdateTime - lastUpdateTime) / (1000 * 1000);
+			deltaTime = (currentUpdateTime - lastUpdateTime) / 1000000;
 
 			update();
 
@@ -64,7 +69,7 @@ public abstract class GameBase implements Runnable {
 
 			if (deltaLoop < DESIRED_DELTA_LOOP) {
 				try {
-					Thread.sleep((DESIRED_DELTA_LOOP - deltaLoop) / (1000 * 1000));
+					Thread.sleep((DESIRED_DELTA_LOOP - deltaLoop) / 1000000);
 				}
 				catch (InterruptedException e) {
 					// Do nothing
@@ -144,6 +149,14 @@ public abstract class GameBase implements Runnable {
 			newObject.start();
 		}
 		newObjects.clear();
+	}
+
+	private void destroyObjects() {
+		for (GameObject gameObject : objectsToDestroy) {
+			gameObjects.remove(gameObject);
+			gameObject.onDestroy();
+		}
+		objectsToDestroy.clear();
 	}
 
 	private void openWindow() {

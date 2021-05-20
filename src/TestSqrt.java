@@ -25,14 +25,15 @@ public class TestSqrt extends Rectangle {
         if (x > 600)
         {
             sign = -1;
-            gameBase.initialize(new TestSqrt());
+            game.initialize(new TestSqrt());
 
-            if (gameBase.getGameObjects().size() > 20)
-                gameBase.finish();
+            if (game.getGameObjects().size() > 20)
+                game.finish();
 
         }
         if (x < 0)
         {
+            game.destroy(this);
             sign = 1;
         }
     }

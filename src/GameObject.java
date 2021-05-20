@@ -1,11 +1,11 @@
 import java.awt.*;
 
-public abstract class GameObject
+public class GameObject
 {
-    protected static GameBase gameBase;
+    protected static GameBase game;
 
     protected float getDeltaTime() {
-        return gameBase.getDeltaTime();
+        return game.getDeltaTime();
     }
     
     protected void awake() {}
