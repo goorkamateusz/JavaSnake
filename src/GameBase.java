@@ -2,6 +2,7 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,7 +21,19 @@ public abstract class GameBase implements Runnable {
 	private Canvas canvas;
 	private BufferStrategy bufferStrategy;
 
+	private List<MonoBehaviour> gameObjects;
+
 	private float deltaTime;
+
+	public GameBase()
+	{
+		openWindow();
+
+		MonoBehaviour.gameBase = this;
+		gameObjects = MonoBehaviour.getGameObjects();
+
+		awake();
+	}
 
 	public void run() {
 		long beginLoopTime;
@@ -62,9 +75,61 @@ public abstract class GameBase implements Runnable {
 	}
 
 	/**
-	 * Open window and Awake
+	 * DeltaTime of current frame
 	 */
-	protected void OpenWindow() {
+	protected float getDeltaTime() {
+		return deltaTime;
+	}
+
+	/**
+	 * Awake method like Unity
+	 */
+	protected void awake() {
+		for (MonoBehaviour gameObject : gameObjects)
+			gameObject.awake();
+	}
+
+	/**
+	 * Start method like Unity
+	 */
+	protected void start() {
+		for (MonoBehaviour gameObject : gameObjects)
+			gameObject.start();
+	}
+
+	/**
+	 * Update method like Unity
+	 */
+	protected void update() {
+		for (MonoBehaviour gameObject : gameObjects)
+			gameObject.update();
+	}
+
+	/**
+	 * OnDestroy method like Unity
+	 */
+	protected void onDestroy() {
+		for (MonoBehaviour gameObject : gameObjects)
+			gameObject.onDestroy();
+	}
+
+	/**
+	 * Render method
+	 */
+	protected void render(Graphics2D g) {
+		for (MonoBehaviour gameObject : gameObjects)
+			gameObject.render(g);
+	}
+
+	private void render() {
+		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
+		g.clearRect(0, 0, WIDTH_OF_WINDOW, HEIGHT_OF_WINDOW);
+		render(g);
+		g.dispose();
+		bufferStrategy.show();
+	}
+
+	private void openWindow() {
 		frame = new JFrame("Basic Game");
 
 		JPanel panel = (JPanel) frame.getContentPane();
@@ -86,47 +151,5 @@ public abstract class GameBase implements Runnable {
 		bufferStrategy = canvas.getBufferStrategy();
 
 		canvas.requestFocus();
-
-		awake();
-	}
-
-	/**
-	 * DeltaTime of current frame
-	 */
-	protected float getDeltaTime() {
-		return deltaTime;
-	}
-
-	/**
-	 * Awake method like Unity
-	 */
-	protected abstract void awake();
-
-	/**
-	 * Start method like Unity
-	 */
-	protected abstract void start();
-
-	/**
-	 * Update method like Unity
-	 */
-	protected abstract void update();
-
-	/**
-	 * OnDestroy method like Unity
-	 */
-	protected abstract void onDestroy();
-
-	/**
-	 * Render method
-	 */
-	protected abstract void render(Graphics2D g);
-
-	private void render() {
-		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
-		g.clearRect(0, 0, WIDTH_OF_WINDOW, HEIGHT_OF_WINDOW);
-		render(g);
-		g.dispose();
-		bufferStrategy.show();
 	}
 }

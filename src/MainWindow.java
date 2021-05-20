@@ -54,7 +54,7 @@ class MainWindow
 
     public void startGame() {
         startButton.setVisible(false);
-        game = new Gameplay(mainFrame);
+        game = new Gameplay();
 		new Thread(game).start();
     }
 }
