@@ -30,7 +30,7 @@ class MainWindow
     /**
      * Game
      */
-    private SnakeGame game;
+    private Gameplay game;
 
     /**
      * Start button
@@ -54,7 +54,7 @@ class MainWindow
 
     public void startGame() {
         startButton.setVisible(false);
-        game = new SnakeGame(mainFrame);
-        game.StartLoop();
+        game = new Gameplay(mainFrame);
+		new Thread(game).start();
     }
 }
