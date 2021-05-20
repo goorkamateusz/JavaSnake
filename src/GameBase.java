@@ -33,15 +33,24 @@ public abstract class GameBase implements Runnable {
 		awake();
 	}
 
+	/**
+	 * Initialize gameobject on gameplay
+	 */
 	public void initialize(GameObject gameObject) {
 		gameObject.awake();
 		newObjects.add(gameObject);
 	}
 
+	/**
+	 * Destroy gameobject and invoke OnDestroy()
+	 */
 	public void destroy(GameObject gameObject) {
 		objectsToDestroy.add(gameObject);
 	}
 
+	/**
+	 * Main loop of game
+	 */
 	public void run() {
 		long beginLoopTime;
 		long endLoopTime;
@@ -80,10 +89,16 @@ public abstract class GameBase implements Runnable {
 		onDestroy();
 	}
 
+	/**
+	 * stop and finish main loop
+	 */
 	public void finish() {
 		running = false;
 	}
 
+	/**
+	 * Get gameobjects in gameplay
+	 */
 	public List<GameObject> getGameObjects() {
 		return gameObjects;
 	}
@@ -95,42 +110,38 @@ public abstract class GameBase implements Runnable {
 		return deltaTime;
 	}
 
-	/**
-	 * Awake method like Unity
-	 */
-	protected void awake() {
+	protected void awakeScene() {}
+	protected void startScene() {}
+	protected void updateScene() {}
+	protected void onDestroyScene() {}
+	protected void renderScene(Graphics2D g) {}
+
+	private void awake() {
+		awakeScene();
 		for (GameObject gameObject : gameObjects)
 			gameObject.awake();
 	}
 
-	/**
-	 * Start method like Unity
-	 */
-	protected void start() {
+	private void start() {
+		startScene();
 		for (GameObject gameObject : gameObjects)
 			gameObject.start();
 	}
 
-	/**
-	 * Update method like Unity
-	 */
-	protected void update() {
+	private void update() {
+		updateScene();
 		for (GameObject gameObject : gameObjects)
 			gameObject.update();
 	}
 
-	/**
-	 * OnDestroy method like Unity
-	 */
-	protected void onDestroy() {
+	private void onDestroy() {
 		for (GameObject gameObject : gameObjects)
 			gameObject.onDestroy();
+		onDestroy();
 	}
 
-	/**
-	 * Render method
-	 */
-	protected void render(Graphics2D g) {
+	private void render(Graphics2D g) {
+		renderScene(g);
 		for (GameObject gameObject : gameObjects)
 			gameObject.render(g);
 	}

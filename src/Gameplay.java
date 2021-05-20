@@ -1,10 +1,14 @@
 public class Gameplay extends GameBase {
 
     @Override
-    protected void awake() {
+    protected void awakeScene() {
         initialize(new TestSqrt());
         initialize(new TestSqrt());
         initialize(new TestSqrt());
-        super.awake();
+        initialize(new TestSqrt());
+        initialize(new TestSqrt());
+        initialize(new TestSqrt());
+        initialize(new TestSqrt());
+        initialize(new TestSqrt());
     }
 }

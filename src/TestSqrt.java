@@ -26,10 +26,6 @@ public class TestSqrt extends Rectangle {
         {
             sign = -1;
             game.initialize(new TestSqrt());
-
-            if (game.getGameObjects().size() > 20)
-                game.finish();
-
         }
         if (x < 0)
         {
