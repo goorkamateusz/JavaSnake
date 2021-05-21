@@ -9,11 +9,11 @@ import javax.swing.JPanel;
 
 public abstract class GameBase implements Runnable {
 	
-	final int WIDTH_OF_WINDOW = 1000;
-	final int HEIGHT_OF_WINDOW = 700;
+	public static final int WIDTH_OF_WINDOW = 1000;
+	public static final int HEIGHT_OF_WINDOW = 700;
 
-	final long DESIRED_FPS = 60;
-	final long DESIRED_DELTA_LOOP = (1000 * 1000 * 1000) / DESIRED_FPS;
+	public final long DESIRED_FPS = 60;
+	public final long DESIRED_DELTA_LOOP = (1000 * 1000 * 1000) / DESIRED_FPS;
 
     private List<GameObject> gameObjects = new ArrayList<GameObject>();
     private List<GameObject> newObjects = new ArrayList<GameObject>();
