@@ -8,10 +8,29 @@ public class GameObject
     protected static GameBase game;
 
     /**
+     * Timer value
+     */
+    private float timer;
+
+    /**
      * Like Time.deltaTime
      */
     protected float getDeltaTime() {
         return game.getDeltaTime();
+    }
+
+    /**
+     * Set timer in milliseconds
+     */
+    protected void setTimer(float milliseconds) {
+        timer = milliseconds;
+    }
+
+    /**
+     * Clock down timer
+     */
+    protected boolean timerClockDown() {
+        return (timer -= getDeltaTime()) < 0;
     }
 
     /**

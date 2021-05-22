@@ -17,16 +17,21 @@ public class TestSqrt extends Cell {
 
     @Override
     protected void update() {
-        x += sign * getDeltaTime() * 0.5;
-        if (x > Gameplay.CELLS_X)
+        if (timerClockDown())
         {
-            sign = -1;
-            game.initialize(new TestSqrt());
-        }
-        if (x < 0)
-        {
-            game.destroy(this);
-            sign = 1;
+            setTimer(500);
+
+            x += sign;
+            if (x > Gameplay.CELLS_X)
+            {
+                sign = -1;
+                game.initialize(new TestSqrt());
+            }
+            if (x < 0)
+            {
+                game.destroy(this);
+                sign = 1;
+            }
         }
     }
 }
