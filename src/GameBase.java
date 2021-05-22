@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 
 public abstract class GameBase implements Runnable {
 	
-	public static final int WIDTH_OF_WINDOW = 1000;
-	public static final int HEIGHT_OF_WINDOW = 700;
+	public static final int DEFAULT_WIDTH_OF_WINDOW = 1000;
+	public static final int DEFAULT_HEIGHT_OF_WINDOW = 700;
 
 	public final long DESIRED_FPS = 60;
 	public final long DESIRED_DELTA_LOOP = (1000 * 1000 * 1000) / DESIRED_FPS;
@@ -28,7 +28,6 @@ public abstract class GameBase implements Runnable {
 
 	public GameBase()
 	{
-		openWindow();
 		GameObject.game = this;
 		awake();
 	}
@@ -110,7 +109,10 @@ public abstract class GameBase implements Runnable {
 		return deltaTime;
 	}
 
-	protected void awakeScene() {}
+	protected void awakeScene() {
+		openWindow(DEFAULT_WIDTH_OF_WINDOW, DEFAULT_HEIGHT_OF_WINDOW, "Game");
+	}
+
 	protected void startScene() {}
 	protected void updateScene() {}
 	protected void onDestroyScene() {}
@@ -148,7 +150,7 @@ public abstract class GameBase implements Runnable {
 
 	private void render() {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
-		g.clearRect(0, 0, WIDTH_OF_WINDOW, HEIGHT_OF_WINDOW);
+		g.clearRect(0, 0, DEFAULT_WIDTH_OF_WINDOW, DEFAULT_HEIGHT_OF_WINDOW);
 		render(g);
 		g.dispose();
 		bufferStrategy.show();
@@ -170,15 +172,15 @@ public abstract class GameBase implements Runnable {
 		objectsToDestroy.clear();
 	}
 
-	private void openWindow() {
-		frame = new JFrame("Basic Game");
+	protected void openWindow(int widthOfWindow, int heightOfWindow, String title) {
+		frame = new JFrame(title);
 
 		JPanel panel = (JPanel) frame.getContentPane();
-		panel.setPreferredSize(new Dimension(WIDTH_OF_WINDOW, HEIGHT_OF_WINDOW));
+		panel.setPreferredSize(new Dimension(widthOfWindow, heightOfWindow));
 		panel.setLayout(null);
 
 		canvas = new Canvas();
-		canvas.setBounds(0, 0, WIDTH_OF_WINDOW, HEIGHT_OF_WINDOW);
+		canvas.setBounds(0, 0, widthOfWindow, heightOfWindow);
 		canvas.setIgnoreRepaint(true);
 
 		panel.add(canvas);
