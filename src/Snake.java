@@ -1,12 +1,13 @@
-import java.awt.Color;
+import java.util.List;
 import java.util.ArrayList;
+import java.util.ListIterator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Snake extends GameObject implements KeyListener {
 
     private Board board;
-    private ArrayList<SnakePart> body;
+    private List<SnakePart> body;
 
     private int initialLength = 2;
 
@@ -14,6 +15,8 @@ public class Snake extends GameObject implements KeyListener {
     private int verticalSpeed = 1;
 
     private int points = 0; // todo licznik do punktów
+
+    private final int TIMMER_BASE_VALUE = 100;
 
     public Snake(Board board) {
         this.board = board;
@@ -42,17 +45,8 @@ public class Snake extends GameObject implements KeyListener {
     private SnakePart AddPart() {
         int lastIndex = body.size() - 1;
 
-        Cell emptyCell = board.GetClosestEmptyCell(board.GetCell(body.get(lastIndex).x, body.get(lastIndex).y)); // todo
-                                                                                                                 // Jeśli
-                                                                                                                 // null
-                                                                                                                 // to
-                                                                                                                 // nie
-                                                                                                                 // ma
-                                                                                                                 // gdzie
-                                                                                                                 // zespawnować
-                                                                                                                 // i
-                                                                                                                 // coś
-                                                                                                                 // zrób
+        //todo Jeśli nie ma gdzie zespawnować to zrób coś
+        Cell emptyCell = board.GetClosestEmptyCell(board.GetCell(body.get(lastIndex).x, body.get(lastIndex).y));
 
         SnakePart snakePart = new SnakePart(emptyCell.x, emptyCell.y);
         body.add(snakePart);
@@ -83,13 +77,13 @@ public class Snake extends GameObject implements KeyListener {
     @Override
     protected void start() {
         // todo Dopytać czemy jak się da tutaj to co jest w Awake to się wywala?
-        setTimer(500);
+        setTimer(TIMMER_BASE_VALUE);
     }
 
     @Override
     protected void update() {
         if (timerClockDown()) {
-            setTimer(500);
+            setTimer(TIMMER_BASE_VALUE);
             int[] lastPosition = new int[2];
 
             lastPosition[0] = body.get(0).x;
@@ -106,13 +100,18 @@ public class Snake extends GameObject implements KeyListener {
                 game.destroy(this);
             }
 
+            // Jeśli snake part to popełnij seppuku
+
             // Jeśli owocek dodaj punkty i dostań ogon
             if (nextCell.content instanceof Fruit) {
-                // Fruit fruit = Fruit.cast(nextCell.content); Tutaj bym chciał zrobić casta ale
-                // nie umiem x.x
+                // Tutaj bym chciał zrobić casta ale nie umiem x.x
+                // Fruit fruit = Fruit.cast(nextCell.content);
+
                 AddPart();
                 game.destroy(nextCell.content);
             }
+
+            // Jeśli żaba to ją zjedz
 
             board.GetCell(head.x, head.y).content = head;
 
@@ -135,7 +134,7 @@ public class Snake extends GameObject implements KeyListener {
 
     @Override
     protected void onDestroy() {
-        // todo usuwanie każdej pojedyńczej części wensza
+        //todo usuwać każdy segment snake osobno ale nie umiem tego zgrać z game.destroy
     }
 
     @Override
@@ -144,18 +143,18 @@ public class Snake extends GameObject implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // System.out.println("naciśnięto " + e.getKeyCode());
+        if (e.getKeyCode() == KeyEvent.VK_W && verticalSpeed != 1)
+            MoveUp();
+        else if (e.getKeyCode() == KeyEvent.VK_S && verticalSpeed != -1)
+            MoveDown();
+        else if (e.getKeyCode() == KeyEvent.VK_D && horizontalSpeed != -1)
+            MoveRight();
+        else if (e.getKeyCode() == KeyEvent.VK_A && horizontalSpeed != 1)
+            ModeLeft();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_W)
-            MoveUp();
-        else if (e.getKeyCode() == KeyEvent.VK_S)
-            MoveDown();
-        else if (e.getKeyCode() == KeyEvent.VK_D)
-            MoveRight();
-        else if (e.getKeyCode() == KeyEvent.VK_A)
-            ModeLeft();
+
     }
 }
