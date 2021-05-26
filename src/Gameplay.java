@@ -21,8 +21,10 @@ public class Gameplay extends GameBase {
 
         Snake snake = new Snake(board);
         initialize(snake);
-        for (int i = 0; i < snake.body.size(); i++) {
-            initialize(snake.body.get(i));
-        }
+
+        FruitGenerator fruitGenerator = new FruitGenerator(board, 10, 1);
+        initialize(fruitGenerator);
+
+        fruitGenerator.SpawnNewFruit(1, 5);
     }
 }

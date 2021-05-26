@@ -1,5 +1,5 @@
 public class Board extends GameObject {
-    public static Cell[][] board = new Cell[Gameplay.CELLS_X][Gameplay.CELLS_Y];
+    public Cell[][] board = new Cell[Gameplay.CELLS_X][Gameplay.CELLS_Y];
 
     public Board() {
         SetBorders();
@@ -21,6 +21,15 @@ public class Board extends GameObject {
             }
         }
         return null;
+    }
+
+    public Cell GetRandomEptyCell() {
+        while (true) {
+            Cell cell = GetCell(Random.Range(0, Gameplay.CELLS_X - 1), Random.Range(0, Gameplay.CELLS_Y - 1));
+            if (IsEmpty(cell))
+                return cell;
+        }
+
     }
 
     public Cell GetClosestEmptyCell(Cell cell) {
@@ -66,10 +75,10 @@ public class Board extends GameObject {
 
     // @Override
     // protected void awake() {
-    //     for (Cell[] cells : board) {
-    //         for (Cell cell : cells) {
-    //             Gameplay.initialize(cell);
-    //         }
-    //     }
+    // for (Cell[] cells : board) {
+    // for (Cell cell : cells) {
+    // Gameplay.initialize(cell);
+    // }
+    // }
     // }
 }
