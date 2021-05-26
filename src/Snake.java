@@ -1,7 +1,8 @@
-import java.awt.Color;
 import java.util.ArrayList;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class Snake extends GameObject {
+public class Snake extends GameObject implements KeyListener {
     public int horizontalSpeed = 0;
     public int verticalSpeed = +1;
 
@@ -26,6 +27,8 @@ public class Snake extends GameObject {
             emptyCell.content = body.get(i);
             // Gameplay.initialize(body.get(i));
         }
+
+        game.addKeyListener(this);
     }
 
     @Override
@@ -64,5 +67,19 @@ public class Snake extends GameObject {
                 lastPosition[1] = tmp[1];
             }
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println("naciśnięto " + e.getKeyCode());
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        System.out.println("puszczono " + e.getKeyCode());
     }
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.awt.event.KeyListener;
 
 public abstract class GameBase implements Runnable {
 	
@@ -45,6 +46,10 @@ public abstract class GameBase implements Runnable {
 	 */
 	public void destroy(GameObject gameObject) {
 		objectsToDestroy.add(gameObject);
+	}
+
+	public void addKeyListener(KeyListener listener) {
+		canvas.addKeyListener(listener);
 	}
 
 	/**
