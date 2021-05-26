@@ -25,6 +25,7 @@ public class Gameplay extends GameBase {
         FruitGenerator fruitGenerator = new FruitGenerator(board, 10, 1);
         initialize(fruitGenerator);
 
-        fruitGenerator.SpawnNewFruit(1, 5);
+        Frog frog = new Frog(board);
+        initialize(frog);
     }
 }
