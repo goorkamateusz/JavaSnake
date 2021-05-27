@@ -12,7 +12,7 @@ public class Snake extends GameObject implements KeyListener {
 
     private int points = 0; // todo licznik do punktów
 
-    private final int TIMMER_BASE_VALUE = 100;
+    private final int TIMER_BASE_VALUE = 100;
 
     public Snake(Board board) {
         this.board = board;
@@ -69,13 +69,13 @@ public class Snake extends GameObject implements KeyListener {
     @Override
     protected void start() {
         // todo Dopytać czemy jak się da tutaj to co jest w Awake to się wywala?
-        setTimer(TIMMER_BASE_VALUE);
+        setTimer(TIMER_BASE_VALUE);
     }
 
     @Override
     protected void update() {
         if (timerClockDown()) {
-            setTimer(TIMMER_BASE_VALUE);
+            setTimer(TIMER_BASE_VALUE);
             Vector2D lastPosition = new Vector2D(body.get(0).position);
             board.GetCell(lastPosition).content = null;
 

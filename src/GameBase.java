@@ -25,7 +25,7 @@ public abstract class GameBase implements Runnable {
 	private BufferStrategy bufferStrategy;
 
 	private boolean running = true;
-	private float deltaTime;
+	private float deltaTime = 0;
 
 	public GameBase()
 	{
@@ -144,7 +144,7 @@ public abstract class GameBase implements Runnable {
 	private void onDestroy() {
 		for (GameObject gameObject : gameObjects)
 			gameObject.onDestroy();
-		onDestroy();
+		onDestroyScene();
 	}
 
 	private void render(Graphics2D g) {
