@@ -11,8 +11,8 @@ public class TestSqrt extends Cell {
 
     @Override
     protected void start() {
-        x = Random.Range(0, Gameplay.CELLS_X);
-        y = Random.Range(0, Gameplay.CELLS_Y);
+        position.x = Random.Range(0, Gameplay.CELLS_X);
+        position.y = Random.Range(0, Gameplay.CELLS_Y);
     }
 
     @Override
@@ -21,13 +21,13 @@ public class TestSqrt extends Cell {
         {
             setTimer(500);
 
-            x += sign;
-            if (x > Gameplay.CELLS_X)
+            position.x += sign;
+            if (position.x > Gameplay.CELLS_X)
             {
                 sign = -1;
                 game.initialize(new TestSqrt());
             }
-            if (x < 0)
+            if (position.x < 0)
             {
                 game.destroy(this);
                 sign = 1;

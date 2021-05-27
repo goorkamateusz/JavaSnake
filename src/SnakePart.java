@@ -7,9 +7,8 @@ public class SnakePart extends GameObject
     public Vector2D position;
     protected Color color;
 
-    public SnakePart(int x, int y)
-    {
-        position = new Vector2D(x, y);
+    public SnakePart(Vector2D position) {
+        this.position = position;
         this.color = Color.green;
     }
 

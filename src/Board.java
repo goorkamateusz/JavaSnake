@@ -37,14 +37,14 @@ public class Board extends GameObject {
     }
 
     public Cell GetClosestEmptyCell(Cell cell) {
-        if (0 <= cell.x + 1 && cell.x + 1 < Gameplay.CELLS_X && IsEmpty(board[cell.x + 1][cell.y]))
-            return board[cell.x + 1][cell.y];
-        if (0 <= cell.y + 1 && cell.y + 1 < Gameplay.CELLS_Y && IsEmpty(board[cell.x][cell.y + 1]))
-            return board[cell.x][cell.y + 1];
-        if (0 <= cell.x - 1 && cell.x - 1 < Gameplay.CELLS_X && IsEmpty(board[cell.x - 1][cell.y]))
-            return board[cell.x - 1][cell.y];
-        if (0 <= cell.y - 1 && cell.y - 1 < Gameplay.CELLS_Y && IsEmpty(board[cell.x][cell.y - 1]))
-            return board[cell.x][cell.y - 1];
+        if (0 <= cell.position.x + 1 && cell.position.x + 1 < Gameplay.CELLS_X && IsEmpty(board[cell.position.x + 1][cell.position.y]))
+            return board[cell.position.x + 1][cell.position.y];
+        if (0 <= cell.position.y + 1 && cell.position.y + 1 < Gameplay.CELLS_Y && IsEmpty(board[cell.position.x][cell.position.y + 1]))
+            return board[cell.position.x][cell.position.y + 1];
+        if (0 <= cell.position.x - 1 && cell.position.x - 1 < Gameplay.CELLS_X && IsEmpty(board[cell.position.x - 1][cell.position.y]))
+            return board[cell.position.x - 1][cell.position.y];
+        if (0 <= cell.position.y - 1 && cell.position.y - 1 < Gameplay.CELLS_Y && IsEmpty(board[cell.position.x][cell.position.y - 1]))
+            return board[cell.position.x][cell.position.y - 1];
         return null;
 
     }

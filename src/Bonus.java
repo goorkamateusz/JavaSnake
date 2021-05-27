@@ -5,18 +5,14 @@ public class Bonus extends Cell {
         color = new Color(Random.Range(0, 255), Random.Range(0, 255), Random.Range(0, 255));
     }
 
-    public Bonus(Color color) {
-        super(color);
-    }
-
     @Override
     protected void awake() {
     }
 
     @Override
     protected void start() {
-        x = Random.Range(0, Gameplay.CELLS_X);
-        y = Random.Range(0, Gameplay.CELLS_Y);
+        position.x = Random.Range(0, Gameplay.CELLS_X);
+        position.y = Random.Range(0, Gameplay.CELLS_Y);
     }
 
     @Override

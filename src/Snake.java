@@ -40,7 +40,7 @@ public class Snake extends GameObject implements KeyListener {
         //todo Jeśli nie ma gdzie zespawnować to zrób coś
         Cell emptyCell = board.GetClosestEmptyCell(board.GetCell(body.get(lastIndex).position));
 
-        SnakePart snakePart = new SnakePart(emptyCell.x, emptyCell.y);
+        SnakePart snakePart = new SnakePart(emptyCell.position);
         body.add(snakePart);
 
         emptyCell.content = snakePart;
@@ -55,7 +55,7 @@ public class Snake extends GameObject implements KeyListener {
 
         var emptyCell = board.GetEmptyCell();
 
-        body.add(new SnakePart(emptyCell.x, emptyCell.y));
+        body.add(new SnakePart(emptyCell.position));
         emptyCell.content = body.get(0);
 
         game.initialize(body.get(0));

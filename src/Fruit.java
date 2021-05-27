@@ -34,7 +34,7 @@ public class Fruit extends GameObject {
     @Override
     protected void render(Graphics2D g) {
         g.setColor(color);
-        g.fillRect(parentCell.x * Gameplay.CELL_WIDTH, parentCell.y * Gameplay.CELL_HEIGHT, Gameplay.CELL_WIDTH,
+        g.fillRect(parentCell.position.x * Gameplay.CELL_WIDTH, parentCell.position.y * Gameplay.CELL_HEIGHT, Gameplay.CELL_WIDTH,
                 Gameplay.CELL_HEIGHT);
     }
 

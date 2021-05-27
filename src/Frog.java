@@ -3,47 +3,38 @@ import java.awt.Graphics2D;
 public class Frog extends GameObject {
 
     private Board board;
-    private int x;
-    private int y;
-
-    private Color color= Color.magenta; // todo Zamienić na sprite
-
-    private int horizontalSpeed = 0;
-    private int verticalSpeed = 0;
+    private Vector2D position;
+    private Color color = Color.magenta; // todo Zamienić na sprite
+    private Vector2D direction = new Vector2D(0, 0);
 
     private final int timerBaseValue = 100;
 
     public Frog(Board board)
-    {   
+    {
         this.board = board;
     }
 
     public void MoveUp() {
-        horizontalSpeed = 0;
-        verticalSpeed = -1;
+        direction.set(0, -1);
     }
 
     public void MoveDown() {
-        horizontalSpeed = 0;
-        verticalSpeed = 1;
+        direction.set(0, 1);
     }
 
     public void ModeLeft() {
-        horizontalSpeed = -1;
-        verticalSpeed = 0;
+        direction.set(-1, 0);
     }
 
     public void MoveRight() {
-        horizontalSpeed = 1;
-        verticalSpeed = 0;
+        direction.set(1, 0);
     }
 
     @Override
     protected void awake() {
         Cell spawnCell = board.GetRandomEptyCell();
         spawnCell.content = this;
-        x = spawnCell.x;
-        y = spawnCell.y;
+        position = spawnCell.position;
     }
 
     @Override
@@ -64,6 +55,6 @@ public class Frog extends GameObject {
     protected void render(Graphics2D g) 
     {
         g.setColor(color);
-        g.fillRect(x*Gameplay.CELL_WIDTH, y*Gameplay.CELL_HEIGHT, Gameplay.CELL_WIDTH, Gameplay.CELL_HEIGHT);
+        g.fillRect(position.x*Gameplay.CELL_WIDTH, position.y*Gameplay.CELL_HEIGHT, Gameplay.CELL_WIDTH, Gameplay.CELL_HEIGHT);
     }
 }
