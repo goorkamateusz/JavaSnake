@@ -12,6 +12,10 @@ public class Board extends GameObject {
         return board[x][y];
     }
 
+    public Cell GetCell(Vector2D lastPosition) {
+        return GetCell(lastPosition.x, lastPosition.y);
+    }
+
     public Cell GetEmptyCell() {
         for (Cell[] row : board) {
             for (Cell cell : row) {

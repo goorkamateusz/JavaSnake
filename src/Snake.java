@@ -1,6 +1,5 @@
 import java.util.List;
 import java.util.ArrayList;
-import java.util.ListIterator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -8,11 +7,8 @@ public class Snake extends GameObject implements KeyListener {
 
     private Board board;
     private List<SnakePart> body;
-
     private int initialLength = 2;
-
-    private int horizontalSpeed = 0;
-    private int verticalSpeed = 1;
+    private Vector2D direction = new Vector2D(0, 1);
 
     private int points = 0; // todo licznik do punktów
 
@@ -23,30 +19,26 @@ public class Snake extends GameObject implements KeyListener {
     }
 
     public void MoveUp() {
-        horizontalSpeed = 0;
-        verticalSpeed = -1;
+        direction.set(0, -1);
     }
 
     public void MoveDown() {
-        horizontalSpeed = 0;
-        verticalSpeed = 1;
+        direction.set(0, 1);
     }
 
     public void ModeLeft() {
-        horizontalSpeed = -1;
-        verticalSpeed = 0;
+        direction.set(-1, 0);
     }
 
     public void MoveRight() {
-        horizontalSpeed = 1;
-        verticalSpeed = 0;
+        direction.set(1, 0);
     }
 
     private SnakePart AddPart() {
         int lastIndex = body.size() - 1;
 
         //todo Jeśli nie ma gdzie zespawnować to zrób coś
-        Cell emptyCell = board.GetClosestEmptyCell(board.GetCell(body.get(lastIndex).x, body.get(lastIndex).y));
+        Cell emptyCell = board.GetClosestEmptyCell(board.GetCell(body.get(lastIndex).position));
 
         SnakePart snakePart = new SnakePart(emptyCell.x, emptyCell.y);
         body.add(snakePart);
@@ -84,16 +76,12 @@ public class Snake extends GameObject implements KeyListener {
     protected void update() {
         if (timerClockDown()) {
             setTimer(TIMMER_BASE_VALUE);
-            int[] lastPosition = new int[2];
-
-            lastPosition[0] = body.get(0).x;
-            lastPosition[1] = body.get(0).y;
-            board.GetCell(lastPosition[0], lastPosition[1]).content = null;
+            Vector2D lastPosition = new Vector2D(body.get(0).position);
+            board.GetCell(lastPosition).content = null;
 
             SnakePart head = body.get(0);
-            head.x = head.x + horizontalSpeed;
-            head.y = head.y + verticalSpeed;
-            Cell nextCell = board.GetCell(head.x, head.y);
+            head.position.add(direction);
+            Cell nextCell = board.GetCell(head.position);
 
             // Jeśli ściana to popełnij seppuku
             if (nextCell instanceof Wall) {
@@ -113,21 +101,17 @@ public class Snake extends GameObject implements KeyListener {
 
             // Jeśli żaba to ją zjedz
 
-            board.GetCell(head.x, head.y).content = head;
+            board.GetCell(head.position).content = head;
 
             for (int i = 1; i < body.size(); i++) {
-                int[] tmp = new int[2];
-                tmp[0] = body.get(i).x;
-                tmp[1] = body.get(i).y;
-                board.GetCell(tmp[0], tmp[1]).content = null;
+                Vector2D tmp = new Vector2D(body.get(i).position);
+                board.GetCell(tmp).content = null;
 
                 SnakePart part = body.get(i);
-                part.x = lastPosition[0];
-                part.y = lastPosition[1];
-                board.GetCell(part.x, part.y).content = part;
+                part.position.set(lastPosition);
+                board.GetCell(part.position).content = part;
 
-                lastPosition[0] = tmp[0];
-                lastPosition[1] = tmp[1];
+                lastPosition = tmp;
             }
         }
     }
@@ -143,13 +127,13 @@ public class Snake extends GameObject implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_W && verticalSpeed != 1)
+        if (e.getKeyCode() == KeyEvent.VK_W && direction.y != 1)
             MoveUp();
-        else if (e.getKeyCode() == KeyEvent.VK_S && verticalSpeed != -1)
+        else if (e.getKeyCode() == KeyEvent.VK_S && direction.y != -1)
             MoveDown();
-        else if (e.getKeyCode() == KeyEvent.VK_D && horizontalSpeed != -1)
+        else if (e.getKeyCode() == KeyEvent.VK_D && direction.x != -1)
             MoveRight();
-        else if (e.getKeyCode() == KeyEvent.VK_A && horizontalSpeed != 1)
+        else if (e.getKeyCode() == KeyEvent.VK_A && direction.x != 1)
             ModeLeft();
     }
 

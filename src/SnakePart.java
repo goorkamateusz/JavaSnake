@@ -4,21 +4,19 @@ import java.awt.Graphics2D;
 public class SnakePart extends GameObject 
 {
     //Sprite sprite
-    protected int x;
-    protected int y;
+    public Vector2D position;
     protected Color color;
-    
-    public SnakePart(int x, int y) 
+
+    public SnakePart(int x, int y)
     {
-        this.x = x;
-        this.y = y;
+        position = new Vector2D(x, y);
         this.color = Color.green;
     }
 
     @Override
-    protected void render(Graphics2D g) 
+    protected void render(Graphics2D g)
     {
         g.setColor(color);
-        g.fillRect(x*Gameplay.CELL_WIDTH, y*Gameplay.CELL_HEIGHT, Gameplay.CELL_WIDTH, Gameplay.CELL_HEIGHT);
+        g.fillRect(position.x*Gameplay.CELL_WIDTH, position.y*Gameplay.CELL_HEIGHT, Gameplay.CELL_WIDTH, Gameplay.CELL_HEIGHT);
     }
 }
