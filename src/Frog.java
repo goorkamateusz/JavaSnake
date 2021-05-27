@@ -32,7 +32,7 @@ public class Frog extends GameObject {
 
     @Override
     protected void awake() {
-        Cell spawnCell = board.GetRandomEptyCell();
+        Cell spawnCell = board.GetRandomEmptyCell();
         spawnCell.content = this;
         position = spawnCell.position;
     }

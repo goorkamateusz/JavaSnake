@@ -7,8 +7,6 @@ public class Board extends GameObject {
     }
 
     public Cell GetCell(int x, int y) {
-        if (x < 0 || Gameplay.CELLS_X < x || y < 0 || Gameplay.CELLS_Y < y)
-            System.out.println("OUT OF RANGE!!!!!!!!!!!!!!!!!!!!!!!!! rzucił bym exception ale nie umiem :c");
         return board[x][y];
     }
 
@@ -16,24 +14,20 @@ public class Board extends GameObject {
         return GetCell(lastPosition.x, lastPosition.y);
     }
 
-    public Cell GetEmptyCell() {
-        for (Cell[] row : board) {
-            for (Cell cell : row) {
-                if (IsEmpty(cell)) {
+    public Cell GetFirstEmptyCell() {
+        for (Cell[] row : board)
+            for (Cell cell : row)
+                if (IsEmpty(cell))
                     return cell;
-                }
-            }
-        }
         return null;
     }
 
-    public Cell GetRandomEptyCell() {
+    public Cell GetRandomEmptyCell() {
         while (true) {
             Cell cell = GetCell(Random.Range(0, Gameplay.CELLS_X - 1), Random.Range(0, Gameplay.CELLS_Y - 1));
             if (IsEmpty(cell))
                 return cell;
         }
-
     }
 
     public Cell GetClosestEmptyCell(Cell cell) {
@@ -50,10 +44,7 @@ public class Board extends GameObject {
     }
 
     private boolean IsEmpty(Cell cell) {
-        if (!(cell instanceof Wall) && cell.content == null)
-            return true;
-        else
-            return false;
+        return !(cell instanceof Wall) && cell.content == null;
     }
 
     private void SetBorders() {
@@ -68,21 +59,10 @@ public class Board extends GameObject {
     }
 
     private void FillWithEmpty() {
-        for (int i = 0; i < Gameplay.CELLS_X; i++) {
-            for (int j = 0; j < Gameplay.CELLS_Y; j++) {
+        for (int i = 0; i < Gameplay.CELLS_X; i++)
+            for (int j = 0; j < Gameplay.CELLS_Y; j++)
                 if (board[i][j] == null) {
                     board[i][j] = new Cell(i, j);
                 }
-            }
-        }
     }
-
-    // @Override
-    // protected void awake() {
-    // for (Cell[] cells : board) {
-    // for (Cell cell : cells) {
-    // Gameplay.initialize(cell);
-    // }
-    // }
-    // }
 }

@@ -1,53 +1,45 @@
-public class FruitGenerator extends GameObject 
-{
+public class FruitGenerator extends GameObject {
     private Board board;
-    
     private int activeFruits = 0;
     private float secondsBetweenFruits;
     private int maxFruits;
 
-
-    public FruitGenerator(Board board, int maxFruits, float secondsBetweenFruits)
-    {
+    public FruitGenerator(Board board, int maxFruits, float secondsBetweenFruits) {
         this.board = board;
         this.maxFruits = maxFruits;
         this.secondsBetweenFruits = secondsBetweenFruits;
     }
 
-    //todo To poleci do kosza, na razie jest tylko do debugu. Nie zalecam używać bo nie sprawdza czy cell jest pusty
-    public Fruit SpawnNewFruit(int x, int y)
-    {
+    // todo To poleci do kosza, na razie jest tylko do debugu. Nie zalecam używać bo
+    // nie sprawdza czy cell jest pusty
+    public Fruit SpawnNewFruit(int x, int y) {
         Cell emptyCell = board.GetCell(x, y);
-        Fruit fruit = new Fruit(emptyCell,FruitType.Apple, this);
+        Fruit fruit = new Fruit(emptyCell, FruitType.Apple, this);
         emptyCell.content = fruit;
         game.initialize(fruit);
         activeFruits++;
         return fruit;
     }
 
-    public void DecreaseCounter()
-    {
+    public void DecreaseCounter() {
         activeFruits--;
     }
 
-    private void SpawnNewFruit()
-    {
-        Cell emptyCell = board.GetRandomEptyCell();
-        Fruit fruit = new Fruit(emptyCell,FruitType.Apple, this);
+    private void SpawnNewFruit() {
+        Cell emptyCell = board.GetRandomEmptyCell();
+        Fruit fruit = new Fruit(emptyCell, FruitType.Apple, this);
         emptyCell.content = fruit;
         game.initialize(fruit);
         activeFruits++;
     }
 
     @Override
-    protected void awake() 
-    {
+    protected void awake() {
 
     }
 
     @Override
-    protected void start() 
-    {
+    protected void start() {
         setTimer(secondsBetweenFruits * 1000);
     }
 
@@ -55,11 +47,9 @@ public class FruitGenerator extends GameObject
     protected void update() {
         if (timerClockDown()) {
             setTimer(secondsBetweenFruits * 1000);
-            if(activeFruits < maxFruits)
-            {
-                SpawnNewFruit();
-            }
 
+            if (activeFruits < maxFruits)
+                SpawnNewFruit();
         }
     }
 }

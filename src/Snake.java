@@ -38,7 +38,7 @@ public class Snake extends GameObject implements KeyListener {
     protected void awake() {
         body = new ArrayList<SnakePart>();
 
-        var emptyCell = board.GetEmptyCell();
+        var emptyCell = board.GetRandomEmptyCell();
         SnakePart head = new SnakePart(emptyCell.position);
         body.add(head);
         board.GetCell(emptyCell.position).content = head;
@@ -107,7 +107,8 @@ public class Snake extends GameObject implements KeyListener {
 
     @Override
     protected void onDestroy() {
-        //todo usuwać każdy segment snake osobno ale nie umiem tego zgrać z game.destroy
+        // todo usuwać każdy segment snake osobno ale nie umiem tego zgrać z
+        // game.destroy
     }
 
     @Override
