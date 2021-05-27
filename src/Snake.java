@@ -7,7 +7,7 @@ public class Snake extends GameObject implements KeyListener {
 
     private Board board;
     private List<SnakePart> body;
-    private int initialLength = 2;
+    private int newPartsNumber = 2;
     private Vector2D direction = new Vector2D(0, 1);
 
     private int points = 0; // todo licznik do punktów
@@ -34,35 +34,16 @@ public class Snake extends GameObject implements KeyListener {
         direction.set(1, 0);
     }
 
-    private SnakePart AddPart() {
-        int lastIndex = body.size() - 1;
-
-        //todo Jeśli nie ma gdzie zespawnować to zrób coś
-        Cell emptyCell = board.GetClosestEmptyCell(board.GetCell(body.get(lastIndex).position));
-
-        SnakePart snakePart = new SnakePart(emptyCell.position);
-        body.add(snakePart);
-
-        emptyCell.content = snakePart;
-
-        game.initialize(snakePart);
-        return snakePart;
-    }
-
     @Override
     protected void awake() {
         body = new ArrayList<SnakePart>();
 
         var emptyCell = board.GetEmptyCell();
+        SnakePart head = new SnakePart(emptyCell.position);
+        body.add(head);
+        board.GetCell(emptyCell.position).content = head;
+        game.initialize(head);
 
-        body.add(new SnakePart(emptyCell.position));
-        emptyCell.content = body.get(0);
-
-        game.initialize(body.get(0));
-
-        for (int i = 1; i < initialLength; i++) {
-            AddPart();
-        }
         game.addKeyListener(this);
     }
 
@@ -95,7 +76,7 @@ public class Snake extends GameObject implements KeyListener {
                 // Tutaj bym chciał zrobić casta ale nie umiem x.x
                 // Fruit fruit = Fruit.cast(nextCell.content);
 
-                AddPart();
+                newPartsNumber++;
                 game.destroy(nextCell.content);
             }
 
@@ -112,6 +93,14 @@ public class Snake extends GameObject implements KeyListener {
                 board.GetCell(part.position).content = part;
 
                 lastPosition = tmp;
+            }
+
+            if (newPartsNumber > 0) {
+                SnakePart newPart = new SnakePart(lastPosition);
+                body.add(newPart);
+                board.GetCell(lastPosition).content = newPart;
+                game.initialize(newPart);
+                newPartsNumber--;
             }
         }
     }

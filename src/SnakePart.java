@@ -8,7 +8,7 @@ public class SnakePart extends GameObject
     protected Color color;
 
     public SnakePart(Vector2D position) {
-        this.position = position;
+        this.position = position.clone();
         this.color = Color.green;
     }
 
