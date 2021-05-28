@@ -2,5 +2,6 @@
     "cSpell.words": [
         "Gameplay",
         "gameobject"
-    ]
+    ],
+    "java.format.settings.url": ".vscode/eclipse-formatter.xml"
 }

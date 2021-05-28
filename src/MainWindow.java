@@ -40,21 +40,27 @@ class MainWindow
     /**
      * MainWindow constructor
      */
-    MainWindow() {
+    MainWindow()
+    {
         mainFrame = new JFrame();
         mainFrame.setSize(WidthOfWindow, HeightOfWindow);
         mainFrame.setLayout(null);
         mainFrame.setVisible(true);
 
         startButton = new JButton("Start");
-        startButton.setBounds((WidthOfWindow - ButtonWidth)/2, (HeightOfWindow - ButtonHeight*2)/2, ButtonWidth, ButtonHeight);
-        startButton.addActionListener(e -> { startGame(); });
+        startButton.setBounds((WidthOfWindow - ButtonWidth) / 2, (HeightOfWindow - ButtonHeight * 2) / 2, ButtonWidth,
+                ButtonHeight);
+        startButton.addActionListener(e ->
+        {
+            startGame();
+        });
         mainFrame.add(startButton);
     }
 
-    public void startGame() {
+    public void startGame()
+    {
         startButton.setVisible(false);
         game = new Gameplay();
-		new Thread(game).start();
+        new Thread(game).start();
     }
 }

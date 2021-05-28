@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Snake extends GameObject implements KeyListener {
-
+public class Snake extends GameObject implements KeyListener
+{
     private Board board;
     private List<SnakePart> body;
     private int newPartsNumber = 2;
@@ -14,28 +14,34 @@ public class Snake extends GameObject implements KeyListener {
 
     private final int TIMER_BASE_VALUE = 100;
 
-    public Snake(Board board) {
+    public Snake(Board board)
+    {
         this.board = board;
     }
 
-    public void MoveUp() {
+    public void MoveUp()
+    {
         direction.set(0, -1);
     }
 
-    public void MoveDown() {
+    public void MoveDown()
+    {
         direction.set(0, 1);
     }
 
-    public void ModeLeft() {
+    public void ModeLeft()
+    {
         direction.set(-1, 0);
     }
 
-    public void MoveRight() {
+    public void MoveRight()
+    {
         direction.set(1, 0);
     }
 
     @Override
-    protected void awake() {
+    protected void awake()
+    {
         body = new ArrayList<SnakePart>();
 
         var emptyCell = board.GetRandomEmptyCell();
@@ -48,14 +54,17 @@ public class Snake extends GameObject implements KeyListener {
     }
 
     @Override
-    protected void start() {
+    protected void start()
+    {
         // todo Dopytać czemy jak się da tutaj to co jest w Awake to się wywala?
         setTimer(TIMER_BASE_VALUE);
     }
 
     @Override
-    protected void update() {
-        if (timerClockDown()) {
+    protected void update()
+    {
+        if (timerClockDown())
+        {
             setTimer(TIMER_BASE_VALUE);
             Vector2D lastPosition = new Vector2D(body.get(0).position);
             board.GetCell(lastPosition).content = null;
@@ -65,14 +74,16 @@ public class Snake extends GameObject implements KeyListener {
             Cell nextCell = board.GetCell(head.position);
 
             // Jeśli ściana to popełnij seppuku
-            if (nextCell instanceof Wall) {
+            if (nextCell instanceof Wall)
+            {
                 game.destroy(this);
             }
 
             // Jeśli snake part to popełnij seppuku
 
             // Jeśli owocek dodaj punkty i dostań ogon
-            if (nextCell.content instanceof Fruit) {
+            if (nextCell.content instanceof Fruit)
+            {
                 // Tutaj bym chciał zrobić casta ale nie umiem x.x
                 // Fruit fruit = Fruit.cast(nextCell.content);
 
@@ -84,7 +95,8 @@ public class Snake extends GameObject implements KeyListener {
 
             board.GetCell(head.position).content = head;
 
-            for (int i = 1; i < body.size(); i++) {
+            for (int i = 1; i < body.size(); i++)
+            {
                 Vector2D tmp = new Vector2D(body.get(i).position);
                 board.GetCell(tmp).content = null;
 
@@ -95,7 +107,8 @@ public class Snake extends GameObject implements KeyListener {
                 lastPosition = tmp;
             }
 
-            if (newPartsNumber > 0) {
+            if (newPartsNumber > 0)
+            {
                 SnakePart newPart = new SnakePart(lastPosition);
                 body.add(newPart);
                 board.GetCell(lastPosition).content = newPart;
@@ -106,17 +119,20 @@ public class Snake extends GameObject implements KeyListener {
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
         // todo usuwać każdy segment snake osobno ale nie umiem tego zgrać z
         // game.destroy
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent e)
+    {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e)
+    {
         if (e.getKeyCode() == KeyEvent.VK_W && direction.y != 1)
             MoveUp();
         else if (e.getKeyCode() == KeyEvent.VK_S && direction.y != -1)
@@ -128,7 +144,8 @@ public class Snake extends GameObject implements KeyListener {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e)
+    {
 
     }
 }

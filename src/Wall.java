@@ -1,19 +1,20 @@
 import java.awt.Color;
 
-public class Wall extends Cell 
+public class Wall extends Cell
 {
     public Wall(int x, int y)
     {
         super(x, y);
     }
-    
+
     @Override
-    protected void awake() {
+    protected void awake()
+    {
         color = Color.BLACK;
     }
 
     @Override
-    protected void start() 
+    protected void start()
     {
 
     }

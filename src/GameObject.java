@@ -1,6 +1,7 @@
 import java.awt.*;
 
-public class GameObject {
+public class GameObject
+{
     /**
      * Reference to gameplay
      */
@@ -14,52 +15,60 @@ public class GameObject {
     /**
      * Like Time.deltaTime
      */
-    protected float getDeltaTime() {
+    protected float getDeltaTime()
+    {
         return game.getDeltaTime();
     }
 
     /**
      * Set timer in milliseconds
      */
-    protected void setTimer(float milliseconds) {
+    protected void setTimer(float milliseconds)
+    {
         timer = milliseconds;
     }
 
     /**
      * Clock down timer
      */
-    protected boolean timerClockDown() {
+    protected boolean timerClockDown()
+    {
         return (timer -= getDeltaTime()) < 0;
     }
 
     /**
      * Like unity Awake (invoke on create of object or create gameplay)
      */
-    protected void awake() {
+    protected void awake()
+    {
     }
 
     /**
      * Like unity Start (invoke on first frame of object like or before begin main
      * loop)
      */
-    protected void start() {
+    protected void start()
+    {
     }
 
     /**
      * Like unity Update (invoke after render on each frames)
      */
-    protected void update() {
+    protected void update()
+    {
     }
 
     /**
      * Like unity OnDestroy (invoke after destroy object or on end of game)
      */
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
     }
 
     /**
      * Method who render a object on screen (invoke on begin of each frames)
      */
-    protected void render(Graphics2D g) {
+    protected void render(Graphics2D g)
+    {
     }
 }

@@ -1,22 +1,26 @@
 import java.awt.Color;
 
-public class TestSqrt extends Cell {
+public class TestSqrt extends Cell
+{
 
     private float sign = 1;
 
     @Override
-    protected void awake() {
+    protected void awake()
+    {
         color = new Color(Random.Range(0, 255), Random.Range(0, 255), Random.Range(0, 255));
     }
 
     @Override
-    protected void start() {
+    protected void start()
+    {
         position.x = Random.Range(0, Gameplay.CELLS_X);
         position.y = Random.Range(0, Gameplay.CELLS_Y);
     }
 
     @Override
-    protected void update() {
+    protected void update()
+    {
         if (timerClockDown())
         {
             setTimer(500);

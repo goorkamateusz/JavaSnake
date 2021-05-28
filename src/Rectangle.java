@@ -1,8 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class Rectangle extends GameObject {
-
+public class Rectangle extends GameObject
+{
     protected int x;
     protected int y;
     protected int width;
@@ -10,7 +10,8 @@ public class Rectangle extends GameObject {
     protected Color color;
 
     @Override
-    protected void render(Graphics2D g) {
+    protected void render(Graphics2D g)
+    {
         g.setColor(color);
         g.fillRect(x, y, width, height);
     }

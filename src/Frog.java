@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
-public class Frog extends GameObject {
+
+public class Frog extends GameObject
+{
 
     private Board board;
     private Vector2D position;
@@ -14,47 +16,56 @@ public class Frog extends GameObject {
         this.board = board;
     }
 
-    public void MoveUp() {
+    public void MoveUp()
+    {
         direction.set(0, -1);
     }
 
-    public void MoveDown() {
+    public void MoveDown()
+    {
         direction.set(0, 1);
     }
 
-    public void ModeLeft() {
+    public void ModeLeft()
+    {
         direction.set(-1, 0);
     }
 
-    public void MoveRight() {
+    public void MoveRight()
+    {
         direction.set(1, 0);
     }
 
     @Override
-    protected void awake() {
+    protected void awake()
+    {
         Cell spawnCell = board.GetRandomEmptyCell();
         spawnCell.content = this;
         position = spawnCell.position;
     }
 
     @Override
-    protected void start() {
+    protected void start()
+    {
         timer = timerBaseValue;
     }
 
     @Override
-    protected void update() {
-        if (timerClockDown()) {
+    protected void update()
+    {
+        if (timerClockDown())
+        {
             setTimer(timerBaseValue);
-            
-            //todo AI uciekania żaby
+
+            // todo AI uciekania żaby
         }
     }
 
     @Override
-    protected void render(Graphics2D g) 
+    protected void render(Graphics2D g)
     {
         g.setColor(color);
-        g.fillRect(position.x*Gameplay.CELL_WIDTH, position.y*Gameplay.CELL_HEIGHT, Gameplay.CELL_WIDTH, Gameplay.CELL_HEIGHT);
+        g.fillRect(position.x * Gameplay.CELL_WIDTH, position.y * Gameplay.CELL_HEIGHT, Gameplay.CELL_WIDTH,
+                Gameplay.CELL_HEIGHT);
     }
 }
