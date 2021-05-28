@@ -192,6 +192,14 @@ public class Vector2D
         return new Vector2D(-x, -y);
     }
 
+    public boolean equalValue(Vector2D vector2d)
+    {
+        if (this.x == vector2d.x && this.y == vector2d.y)
+            return true;
+        else
+            return false;
+    }
+
     @Override
     public Vector2D clone()
     {

@@ -1,4 +1,5 @@
 import java.util.List;
+
 import java.util.ArrayList;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -70,6 +71,11 @@ public class Snake extends GameObject implements KeyListener
     {
         if (timerClockDown())
         {
+            System.out.println(Head().position);
+            Pathfinding pathfinding = new Pathfinding();
+
+            var xd = pathfinding.A_Star(Head().position, new Vector2D(5,5), board);
+
             setTimer(TIMER_BASE_VALUE);
             Vector2D lastPosition = new Vector2D(body.get(0).position);
             board.GetCell(lastPosition).content = null;
