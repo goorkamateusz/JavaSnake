@@ -50,7 +50,6 @@ public class Snake extends GameObject implements KeyListener
         Cell closestFruit = board.GetClosestFruit(board.GetCell(Head().position.clone()));
         if(closestFruit == null)
             closestFruit = board.GetRandomEmptyCell();
-            
         Pathfinding pathfinding = new Pathfinding();
         var path = pathfinding.A_Star(Head().position.clone(), closestFruit.position.clone(), board);
         direction = path.get(1).clone().getSubtracted(path.get(0).clone());
@@ -104,6 +103,16 @@ public class Snake extends GameObject implements KeyListener
         body.add(head);
         board.GetCell(emptyCell.position).content = head;
         game.initialize(head);
+
+        if (newPartsNumber > 0)
+        {
+            Cell closestEmptyCell = board.GetClosestEmptyCell(board.GetCell(body.get(body.size()-1).position.clone()));
+            SnakePart newPart = new SnakePart(closestEmptyCell.position.clone());
+            body.add(newPart);
+            board.GetCell(closestEmptyCell.position.clone()).content = newPart;
+            game.initialize(newPart);
+            newPartsNumber--;
+        }
 
         game.addKeyListener(this);
     }
