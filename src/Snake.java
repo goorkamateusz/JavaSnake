@@ -47,8 +47,13 @@ public class Snake extends GameObject implements KeyListener
 
     private void IsAI()
     {
+        Cell closestFruit = board.GetClosestFruit(board.GetCell(Head().position.clone()));
+        if(closestFruit == null)
+            closestFruit = board.GetRandomEmptyCell();
+            
         Pathfinding pathfinding = new Pathfinding();
-        var xd = pathfinding.A_Star(Head().position, new Vector2D(5,5), board);
+        var path = pathfinding.A_Star(Head().position.clone(), closestFruit.position.clone(), board);
+        direction = path.get(1).clone().getSubtracted(path.get(0).clone());
     }
 
     //todo
@@ -142,6 +147,8 @@ public class Snake extends GameObject implements KeyListener
 
                 lastPosition = tmp;
             }
+
+            IsAI();
 
             if (newPartsNumber > 0)
             {
