@@ -1,19 +1,22 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.lang.Math;
 
 public class Frog extends GameObject
 {
 
     private Board board;
+    private Snake snake;
     private Vector2D position;
     private Color color = Color.magenta; // todo Zamienić na sprite
     private Vector2D direction = new Vector2D(0, 0);
 
-    private final int timerBaseValue = 100;
+    private final int TIMER_BASE_VALUE = 200;
 
-    public Frog(Board board)
+    public Frog(Board board, Snake snake)
     {
         this.board = board;
+        this.snake = snake;
     }
 
     public void MoveUp()
@@ -26,7 +29,7 @@ public class Frog extends GameObject
         direction.set(0, 1);
     }
 
-    public void ModeLeft()
+    public void MoveLeft()
     {
         direction.set(-1, 0);
     }
@@ -41,13 +44,13 @@ public class Frog extends GameObject
     {
         Cell spawnCell = board.GetRandomEmptyCell();
         spawnCell.content = this;
-        position = spawnCell.position;
+        position = spawnCell.position.clone();
     }
 
     @Override
     protected void start()
     {
-        timer = timerBaseValue;
+        timer = TIMER_BASE_VALUE;
     }
 
     @Override
@@ -55,9 +58,45 @@ public class Frog extends GameObject
     {
         if (timerClockDown())
         {
-            setTimer(timerBaseValue);
+            setTimer(TIMER_BASE_VALUE);
 
-            // todo AI uciekania żaby
+            int horizontalDistanceFromSnake = position.x - snake.Head().position.x;
+            int verticalDistanceFromSnake = position.y - snake.Head().position.y;
+
+            if (Math.abs(horizontalDistanceFromSnake) < Math.abs(verticalDistanceFromSnake))
+            {
+                if (verticalDistanceFromSnake < 0)
+                    MoveUp();
+                else
+                    MoveDown();
+            } 
+            else
+            {
+                if (horizontalDistanceFromSnake < 0)
+                    MoveLeft();
+                else
+                    MoveRight();
+            }
+
+            Vector2D newPosition = position.clone();
+            newPosition.add(direction);
+
+            Cell thisCell = board.GetCell(position);
+            thisCell.content = null;
+
+            if (board.GetCell(newPosition) instanceof Wall)
+            {
+                Cell emptyCell = board.GetClosestEmptyCell(thisCell);
+
+                position.set(emptyCell.position);
+                emptyCell.content = this;
+            } else
+            {
+                Cell emptyCell = board.GetCell(newPosition);
+                position.set(newPosition.clone());
+                emptyCell.content = this;
+            }
+
         }
     }
 

@@ -19,6 +19,11 @@ public class Snake extends GameObject implements KeyListener
         this.board = board;
     }
 
+    public SnakePart Head()
+    {
+        return body.get(0);
+    }
+
     public void MoveUp()
     {
         direction.set(0, -1);
