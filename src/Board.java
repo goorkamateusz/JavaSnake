@@ -2,10 +2,12 @@ public class Board extends GameObject
 {
     public Cell[][] board = new Cell[Gameplay.CELLS_X][Gameplay.CELLS_Y];
 
-    public Board()
+    public Board(int obstaclesCount)
     {
         SetBorders();
+        RandomObstacles(obstaclesCount);
         FillWithEmpty();
+        Initialize();
     }
 
     public Cell GetCell(int x, int y)
@@ -74,6 +76,19 @@ public class Board extends GameObject
         }
     }
 
+    private void RandomObstacles(int obstaclesCount)
+    {
+        for (int i = 0; i < obstaclesCount; i++)
+        {
+            Vector2D position = new Vector2D(Random.Range(0, Gameplay.CELLS_X - 1),
+                    Random.Range(0, Gameplay.CELLS_Y - 1));
+            if (GetCell(position.x, position.y) != null)
+                i--;
+            else
+                board[position.x][position.y] = new Wall(position.x, position.y);
+        }
+    }
+
     private void FillWithEmpty()
     {
         for (int i = 0; i < Gameplay.CELLS_X; i++)
@@ -82,5 +97,16 @@ public class Board extends GameObject
                 {
                     board[i][j] = new Cell(i, j);
                 }
+    }
+
+    private void Initialize()
+    {
+        for (Cell[] cells : board)
+        {
+            for (Cell cell : cells)
+            {
+                game.initialize(cell);
+            }
+        }
     }
 }

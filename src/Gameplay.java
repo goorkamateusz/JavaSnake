@@ -12,12 +12,8 @@ public class Gameplay extends GameBase {
         openWindow(WIDTH_OF_WINDOW, HEIGHT_OF_WINDOW, "JavaSnake");
 
         // Na razie wszystko się tutaj inicjalizuje. Jakoś to się przeniesie
-        Board board = new Board();
-        for (Cell[] cells : board.board) {
-            for (Cell cell : cells) {
-                initialize(cell);
-            }
-        }
+        Board board = new Board(10);
+
 
         Snake snake = new Snake(board);
         initialize(snake);

@@ -11,7 +11,7 @@ public class Frog extends GameObject
     private Color color = Color.magenta; // todo Zamienić na sprite
     private Vector2D direction = new Vector2D(0, 0);
 
-    private final int TIMER_BASE_VALUE = 200;
+    private final int TIMER_BASE_VALUE = 500;
 
     public Frog(Board board, Snake snake)
     {
