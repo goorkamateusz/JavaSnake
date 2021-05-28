@@ -6,6 +6,7 @@ public class Pathfinding
 {
     private ArrayList<Node> open;
     private ArrayList<Node> closed;
+    private ArrayList<Vector2D> path;
 
     private int Cost(Vector2D startingPosition, Vector2D nodePosition)
     {
@@ -14,11 +15,26 @@ public class Pathfinding
         return x + y;
     }
 
+    private void PrintWay(Node finishNode)
+    {
+        path.add(finishNode.position);
+        if (!finishNode.position.equalValue(finishNode.parentPosition))
+        {
+            for (Node parent : closed) 
+            {
+                if (parent.position.equalValue(finishNode.parentPosition))
+                {
+                    PrintWay(parent);
+                }
+            }
+        }
+    }
+
     public ArrayList<Vector2D> A_Star(Vector2D startingPosition, Vector2D endingPosition, Board board)
     {
         open = new ArrayList<Node>();
         closed = new ArrayList<Node>();
-        ArrayList<Vector2D> path = new ArrayList<Vector2D>();
+        path = new ArrayList<Vector2D>();
         Node startingNode = new Node(startingPosition, startingPosition, 0, 0);
         open.add(startingNode);
 
@@ -64,8 +80,8 @@ public class Pathfinding
 
                     for (Node qParent : closed) 
                     {
-                        if (qParent.position == q.parentPosition)
-                        PrintWay(qParent,path);
+                        if (qParent.position.equalValue(q.parentPosition))
+                        PrintWay(qParent);
                     }
 
                     Collections.reverse(path);

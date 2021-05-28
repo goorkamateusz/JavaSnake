@@ -1,3 +1,4 @@
+
 public class Board extends GameObject
 {
     public Cell[][] board = new Cell[Gameplay.CELLS_X][Gameplay.CELLS_Y];
@@ -54,7 +55,28 @@ public class Board extends GameObject
                 && IsEmpty(board[cell.position.x][cell.position.y - 1]))
             return board[cell.position.x][cell.position.y - 1];
         return null;
+    }
 
+    public Cell GetClosestFruit(Cell origin)
+    {
+        int distance = 100000;
+        Cell cellWithFruit = null;
+        for (Cell[] cells : board) 
+        {
+            for (Cell cell : cells) 
+            {
+                if(cell.content instanceof Fruit)
+                {
+                    int temp = origin.position.clone().distanceSq(cell.position.clone());
+                    if(temp < distance)
+                    {
+                        distance = temp;
+                        cellWithFruit = cell;
+                    }
+                }
+            }
+        }
+        return cellWithFruit;
     }
 
     private boolean IsEmpty(Cell cell)

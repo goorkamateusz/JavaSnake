@@ -45,6 +45,50 @@ public class Snake extends GameObject implements KeyListener
         direction.set(1, 0);
     }
 
+    private void IsAI()
+    {
+        Pathfinding pathfinding = new Pathfinding();
+        var xd = pathfinding.A_Star(Head().position, new Vector2D(5,5), board);
+    }
+
+    //todo
+    private boolean IsColliding(Cell nextCell)
+    {
+            // Jeśli ściana to popełnij seppuku
+            if (nextCell instanceof Wall)
+            {
+                game.destroy(this);
+                return true;
+            }
+
+            // Jeśli snake part to popełnij seppuku
+            if(nextCell.content instanceof SnakePart)
+            {
+                game.destroy(this);
+                return true;
+            }
+
+            // Jeśli owocek dodaj punkty i dostań ogon
+            if (nextCell.content instanceof Fruit)
+            {
+                // Tutaj bym chciał zrobić casta ale nie umiem x.x
+                // Fruit fruit = Fruit.cast(nextCell.content);
+
+                newPartsNumber++;
+                game.destroy(nextCell.content);
+                
+            }
+
+            //Jeśli żaba to ją zjedz
+            if(nextCell.content instanceof Frog)
+            {
+                newPartsNumber++;
+                game.destroy(nextCell.content);
+            }
+
+            return false;
+    }
+
     @Override
     protected void awake()
     {
@@ -71,12 +115,8 @@ public class Snake extends GameObject implements KeyListener
     {
         if (timerClockDown())
         {
-            System.out.println(Head().position);
-            Pathfinding pathfinding = new Pathfinding();
-
-            var xd = pathfinding.A_Star(Head().position, new Vector2D(5,5), board);
-
             setTimer(TIMER_BASE_VALUE);
+
             Vector2D lastPosition = new Vector2D(body.get(0).position);
             board.GetCell(lastPosition).content = null;
 
@@ -85,36 +125,8 @@ public class Snake extends GameObject implements KeyListener
             newPosition.add(direction);
             Cell nextCell = board.GetCell(newPosition);
 
-            // Jeśli ściana to popełnij seppuku
-            if (nextCell instanceof Wall)
-            {
-                game.destroy(this);
+            if(IsColliding(nextCell))
                 return;
-            }
-
-            // Jeśli snake part to popełnij seppuku
-            if(nextCell.content instanceof SnakePart)
-            {
-                game.destroy(this);
-                return;
-            }
-
-            // Jeśli owocek dodaj punkty i dostań ogon
-            if (nextCell.content instanceof Fruit)
-            {
-                // Tutaj bym chciał zrobić casta ale nie umiem x.x
-                // Fruit fruit = Fruit.cast(nextCell.content);
-
-                newPartsNumber++;
-                game.destroy(nextCell.content);
-            }
-
-            //Jeśli żaba to ją zjedz
-            if(nextCell.content instanceof Frog)
-            {
-                newPartsNumber++;
-                game.destroy(nextCell.content);
-            }
 
             head.position.add(direction);
             board.GetCell(head.position).content = head;
