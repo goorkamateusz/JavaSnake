@@ -75,16 +75,23 @@ public class Snake extends GameObject implements KeyListener
             board.GetCell(lastPosition).content = null;
 
             SnakePart head = body.get(0);
-            head.position.add(direction);
-            Cell nextCell = board.GetCell(head.position);
+            Vector2D newPosition = head.position.clone();
+            newPosition.add(direction);
+            Cell nextCell = board.GetCell(newPosition);
 
             // Jeśli ściana to popełnij seppuku
             if (nextCell instanceof Wall)
             {
                 game.destroy(this);
+                return;
             }
 
             // Jeśli snake part to popełnij seppuku
+            if(nextCell.content instanceof SnakePart)
+            {
+                game.destroy(this);
+                return;
+            }
 
             // Jeśli owocek dodaj punkty i dostań ogon
             if (nextCell.content instanceof Fruit)
@@ -96,8 +103,14 @@ public class Snake extends GameObject implements KeyListener
                 game.destroy(nextCell.content);
             }
 
-            // Jeśli żaba to ją zjedz
+            //Jeśli żaba to ją zjedz
+            if(nextCell.content instanceof Frog)
+            {
+                newPartsNumber++;
+                game.destroy(nextCell.content);
+            }
 
+            head.position.add(direction);
             board.GetCell(head.position).content = head;
 
             for (int i = 1; i < body.size(); i++)
