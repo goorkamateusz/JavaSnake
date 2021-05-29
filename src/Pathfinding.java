@@ -57,15 +57,22 @@ public class Pathfinding implements Runnable
             right.x += 1;
             left.x += -1;
 
-            //Tutaj dodać sprawdzanie innych rzeczy np. obecność innego snake'a
-            if (!(board.GetCell(up) instanceof Wall) && !(board.GetCell(up).content instanceof SnakePart))
-                Successors.add(new Node(up.clone(), q.position.clone(), Cost(startingPosition, up), Cost(endingPosition, up)));
-            if (!(board.GetCell(down) instanceof Wall) && !(board.GetCell(down).content instanceof SnakePart))
-                Successors.add(new Node(down.clone(), q.position.clone(), Cost(startingPosition, down), Cost(endingPosition, down)));
-            if (!(board.GetCell(right) instanceof Wall) && !(board.GetCell(right).content instanceof SnakePart))
-                Successors.add(new Node(right.clone(), q.position.clone(), Cost(startingPosition, right), Cost(endingPosition, right)));
-            if (!(board.GetCell(left) instanceof Wall) && !(board.GetCell(left).content instanceof SnakePart))
-                Successors.add(new Node(left.clone(), q.position.clone(), Cost(startingPosition, left), Cost(endingPosition, left)));
+            try
+            {
+                //Tutaj dodać sprawdzanie innych rzeczy np. obecność innego snake'a
+                if (!(board.GetCell(up) instanceof Wall) && !(board.GetCell(up).content instanceof SnakePart))
+                    Successors.add(new Node(up.clone(), q.position.clone(), Cost(startingPosition, up), Cost(endingPosition, up)));
+                if (!(board.GetCell(down) instanceof Wall) && !(board.GetCell(down).content instanceof SnakePart))
+                    Successors.add(new Node(down.clone(), q.position.clone(), Cost(startingPosition, down), Cost(endingPosition, down)));
+                if (!(board.GetCell(right) instanceof Wall) && !(board.GetCell(right).content instanceof SnakePart))
+                    Successors.add(new Node(right.clone(), q.position.clone(), Cost(startingPosition, right), Cost(endingPosition, right)));
+                if (!(board.GetCell(left) instanceof Wall) && !(board.GetCell(left).content instanceof SnakePart))
+                    Successors.add(new Node(left.clone(), q.position.clone(), Cost(startingPosition, left), Cost(endingPosition, left)));
+            }
+            catch (ArrayIndexOutOfBoundsException e)
+            {
+                
+            }
 
             for (Node node : Successors)
             {

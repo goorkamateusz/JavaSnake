@@ -59,6 +59,6 @@ public class SnakePlayer extends Snake implements KeyListener
         Font font = new Font("Arial", Font.BOLD, 18);
         g.setFont(font);
         g.setColor(color);
-        g.drawString("Player: " + points, 10, Gameplay.HEIGHT_OF_WINDOW-10);
+        g.drawString("Player: " + points, 5, Gameplay.HEIGHT_OF_WINDOW-10);
     }
 }

@@ -4,13 +4,24 @@ import java.awt.Graphics2D;
 
 public class SnakeAI extends Snake
 {
+    static private int AICounter;
+    private int aiId;
     private Thread thread = null;
     private Pathfinding pathFinding;
 
     public SnakeAI(Board board)
     {
         super(board);
-        color = Color.blue;
+        aiId = AICounter % 10;
+        AICounter++;
+        color = new Color(0 + 25*aiId, 0, 255 - 25*aiId);
+    }
+
+    private SnakeAI(Board board, int id)
+    {
+        super(board);
+        aiId = id;
+        color = new Color(0 + 25*aiId, 0, 255 - 25*aiId);
     }
 
     @Override
@@ -45,7 +56,7 @@ public class SnakeAI extends Snake
     @Override
     protected void onDestroy()
     {
-        game.initialize(new SnakeAI(board));
+        game.initialize(new SnakeAI(board, aiId));
     }
 
     @Override
@@ -54,6 +65,6 @@ public class SnakeAI extends Snake
         Font font = new Font("Arial", Font.BOLD, 18);
         g.setFont(font);
         g.setColor(color);
-        g.drawString("AI: " + points, Gameplay.WIDTH_OF_WINDOW - 80, Gameplay.HEIGHT_OF_WINDOW - 10);
+        g.drawString("AI:" + points, Gameplay.WIDTH_OF_WINDOW - (aiId+1) * 40, Gameplay.HEIGHT_OF_WINDOW - 10);
     }
 }

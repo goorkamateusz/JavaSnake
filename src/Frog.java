@@ -64,7 +64,7 @@ public class Frog extends GameObject
                 System.out.println(e);
             }
 
-            pathFinding = new Pathfinding(Vector2D.add(position, direction), target.clone(), board);
+            pathFinding = new Pathfinding(position.clone(), target.clone(), board);
             thread = new Thread(pathFinding);
             thread.start();
         }
