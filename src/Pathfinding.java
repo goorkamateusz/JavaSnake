@@ -2,32 +2,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.lang.Math;
 
-public class Pathfinding
+public class PathFinding implements Runnable
 {
+    public Vector2D StartingPosition;
+    public Vector2D EndingPosition;
+    public Board Board;
+    public ArrayList<Vector2D> Result;
+
     private ArrayList<Node> open;
     private ArrayList<Node> closed;
     private ArrayList<Vector2D> path;
 
-    private int Cost(Vector2D startingPosition, Vector2D nodePosition)
+    public PathFinding(Vector2D starting, Vector2D ending, Board board)
     {
-        int x = Math.abs(startingPosition.x - nodePosition.x);
-        int y = Math.abs(startingPosition.y - nodePosition.y);
-        return x + y;
+        StartingPosition = starting;
+        EndingPosition = ending;
+        Board = board;
     }
 
-    private void PrintWay(Node finishNode)
+    @Override
+    public void run()
     {
-        path.add(finishNode.position);
-        if (!finishNode.position.equalValue(finishNode.parentPosition))
-        {
-            for (Node parent : closed) 
-            {
-                if (parent.position.equalValue(finishNode.parentPosition))
-                {
-                    PrintWay(parent);
-                }
-            }
-        }
+        Result = A_Star(StartingPosition, EndingPosition, Board);
     }
 
     public ArrayList<Vector2D> A_Star(Vector2D startingPosition, Vector2D endingPosition, Board board)
@@ -71,7 +67,7 @@ public class Pathfinding
             if (!(board.GetCell(left) instanceof Wall) && !(board.GetCell(left).content instanceof SnakePart))
                 Successors.add(new Node(left.clone(), q.position.clone(), Cost(startingPosition, left), Cost(endingPosition, left)));
 
-            for (Node node : Successors) 
+            for (Node node : Successors)
             {
                 if (node.position.equalValue(endingPosition))
                 {
@@ -133,5 +129,27 @@ public class Pathfinding
             closed.add(q);
         }
         return path;
+    }
+
+    private int Cost(Vector2D startingPosition, Vector2D nodePosition)
+    {
+        int x = Math.abs(startingPosition.x - nodePosition.x);
+        int y = Math.abs(startingPosition.y - nodePosition.y);
+        return x + y;
+    }
+
+    private void PrintWay(Node finishNode)
+    {
+        path.add(finishNode.position);
+        if (!finishNode.position.equalValue(finishNode.parentPosition))
+        {
+            for (Node parent : closed)
+            {
+                if (parent.position.equalValue(finishNode.parentPosition))
+                {
+                    PrintWay(parent);
+                }
+            }
+        }
     }
 }

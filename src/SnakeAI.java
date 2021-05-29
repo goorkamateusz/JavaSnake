@@ -4,6 +4,9 @@ import java.awt.Graphics2D;
 
 public class SnakeAI extends Snake
 {
+    private Thread thread = null;
+    private PathFinding pathFinding;
+
     public SnakeAI(Board board)
     {
         super(board);
@@ -13,13 +16,30 @@ public class SnakeAI extends Snake
     @Override
     protected void control()
     {
+        if (thread != null)
+        {
+            try
+            {
+                thread.join();
+                thread = null;
+
+                var path = pathFinding.Result;
+                if (path.size() > 2)
+                    direction = path.get(1).clone().getSubtracted(path.get(0).clone());
+            }
+            catch (InterruptedException e)
+            {
+                System.out.println(e);
+            }
+        }
+
         Cell closestFruit = board.GetClosestFruit(board.GetCell(Head().position.clone()));
         if (closestFruit == null)
             closestFruit = board.GetRandomEmptyCell();
-        Pathfinding pathfinding = new Pathfinding();
-        var path = pathfinding.A_Star(Head().position.clone(), closestFruit.position.clone(), board);
-        if (path.size() > 2)
-            direction = path.get(1).clone().getSubtracted(path.get(0).clone());
+
+        pathFinding = new PathFinding(Head().position.clone(), closestFruit.position.clone(), board);
+        thread = new Thread(pathFinding);
+        thread.start();
     }
 
     @Override
@@ -34,6 +54,6 @@ public class SnakeAI extends Snake
         Font font = new Font("Arial", Font.PLAIN, 18);
         g.setFont(font);
         g.setColor(color);
-        g.drawString("AI: " + points, Gameplay.WIDTH_OF_WINDOW-80, Gameplay.HEIGHT_OF_WINDOW-10);
+        g.drawString("AI: " + points, Gameplay.WIDTH_OF_WINDOW - 80, Gameplay.HEIGHT_OF_WINDOW - 10);
     }
 }
