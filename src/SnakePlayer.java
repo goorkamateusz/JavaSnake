@@ -14,8 +14,14 @@ public class SnakePlayer extends Snake implements KeyListener
     }
 
     @Override
-    protected void Control()
+    protected void control()
     {
+    }
+
+    @Override
+    protected void dead()
+    {
+        game.finish();
     }
 
     @Override
@@ -33,17 +39,14 @@ public class SnakePlayer extends Snake implements KeyListener
     @Override
     public void keyPressed(KeyEvent e)
     {
-        if (!isAi)
-        {
-            if (e.getKeyCode() == KeyEvent.VK_W && direction.y != 1)
-                MoveUp();
-            else if (e.getKeyCode() == KeyEvent.VK_S && direction.y != -1)
-                MoveDown();
-            else if (e.getKeyCode() == KeyEvent.VK_D && direction.x != -1)
-                MoveRight();
-            else if (e.getKeyCode() == KeyEvent.VK_A && direction.x != 1)
-                ModeLeft();
-        }
+        if (e.getKeyCode() == KeyEvent.VK_W && direction.y != 1)
+            MoveUp();
+        else if (e.getKeyCode() == KeyEvent.VK_S && direction.y != -1)
+            MoveDown();
+        else if (e.getKeyCode() == KeyEvent.VK_D && direction.x != -1)
+            MoveRight();
+        else if (e.getKeyCode() == KeyEvent.VK_A && direction.x != 1)
+            ModeLeft();
     }
 
     @Override

@@ -9,7 +9,6 @@ public abstract class Snake extends GameObject
     protected List<SnakePart> body;
     protected int newPartsNumber = 2;
     protected Vector2D direction = new Vector2D(0, 1);
-    protected boolean isAi = false;
     protected Color color;
 
     protected int points = 0; // todo licznik do punktów
@@ -46,7 +45,17 @@ public abstract class Snake extends GameObject
         direction.set(1, 0);
     }
 
-    protected abstract void Control();
+    protected void control()
+    {
+    }
+
+    protected void dead()
+    {
+        for (SnakePart snakePart : body) {
+            game.destroy(snakePart);
+        }
+        game.destroy(this);
+    }
 
     @Override
     protected void awake()
@@ -111,7 +120,7 @@ public abstract class Snake extends GameObject
                 lastPosition = tmp;
             }
 
-            Control();
+            control();
 
             if (newPartsNumber > 0)
             {
@@ -125,11 +134,8 @@ public abstract class Snake extends GameObject
     }
 
     @Override
-    protected void onDestroy()
-    {
-        for (SnakePart snakePart : body) {
-            game.destroy(snakePart);
-        }
+    protected void onDestroy() {
+        body.clear();
     }
 
     // todo
@@ -138,14 +144,14 @@ public abstract class Snake extends GameObject
         // Jeśli ściana to popełnij seppuku
         if (nextCell instanceof Wall)
         {
-            game.destroy(this);
+            dead();
             return true;
         }
 
         // Jeśli snake part to popełnij seppuku
         if (nextCell.content instanceof SnakePart)
         {
-            game.destroy(this);
+            dead();
             return true;
         }
 

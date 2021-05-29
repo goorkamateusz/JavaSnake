@@ -10,16 +10,22 @@ public class SnakeAI extends Snake
         color = Color.blue;
     }
 
-
     @Override
-    protected void Control()
+    protected void control()
     {
         Cell closestFruit = board.GetClosestFruit(board.GetCell(Head().position.clone()));
         if (closestFruit == null)
             closestFruit = board.GetRandomEmptyCell();
         Pathfinding pathfinding = new Pathfinding();
         var path = pathfinding.A_Star(Head().position.clone(), closestFruit.position.clone(), board);
-        direction = path.get(1).clone().getSubtracted(path.get(0).clone());
+        if (path.size() > 2)
+            direction = path.get(1).clone().getSubtracted(path.get(0).clone());
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        game.initialize(new SnakeAI(board));
     }
 
     @Override

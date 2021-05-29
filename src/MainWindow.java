@@ -50,10 +50,10 @@ class MainWindow
         startButton = new JButton("Start");
         startButton.setBounds((WidthOfWindow - ButtonWidth) / 2, (HeightOfWindow - ButtonHeight * 2) / 2, ButtonWidth,
                 ButtonHeight);
-        startButton.addActionListener(e ->
-        {
+        // startButton.addActionListener(e ->
+        // {
             startGame();
-        });
+        // });
         mainFrame.add(startButton);
     }
 

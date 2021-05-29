@@ -1,5 +1,3 @@
-import javax.swing.JLabel;
-
 public class Gameplay extends GameBase {
 
     public static final int CELLS_X = 30;
@@ -14,9 +12,7 @@ public class Gameplay extends GameBase {
     protected void awakeScene() {
         openWindow(WIDTH_OF_WINDOW, HEIGHT_OF_WINDOW, "JavaSnake");
 
-        // Na razie wszystko się tutaj inicjalizuje. Jakoś to się przeniesie
         Board board = new Board(10);
-
 
         Snake snake = new SnakeAI(board);
         initialize(snake);
@@ -28,6 +24,6 @@ public class Gameplay extends GameBase {
         initialize(fruitGenerator);
 
         Frog frog = new Frog(board,snake);
-        initialize(frog);
+        // initialize(frog);
     }
 }
