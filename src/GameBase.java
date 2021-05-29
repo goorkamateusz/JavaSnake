@@ -21,7 +21,7 @@ public abstract class GameBase implements Runnable
 	private List<GameObject> newObjects = new ArrayList<GameObject>();
 	private List<GameObject> objectsToDestroy = new ArrayList<GameObject>();
 
-	private JFrame frame;
+	protected JFrame frame;
 	private Canvas canvas;
 	private BufferStrategy bufferStrategy;
 
