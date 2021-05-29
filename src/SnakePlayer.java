@@ -6,7 +6,6 @@ import java.awt.event.KeyListener;
 
 public class SnakePlayer extends Snake implements KeyListener
 {
-
     public SnakePlayer(Board board)
     {
         super(board);
@@ -57,7 +56,7 @@ public class SnakePlayer extends Snake implements KeyListener
     @Override
     protected void render(Graphics2D g)
     {
-        Font font = new Font("Arial", Font.PLAIN, 18);
+        Font font = new Font("Arial", Font.BOLD, 18);
         g.setFont(font);
         g.setColor(color);
         g.drawString("Player: " + points, 10, Gameplay.HEIGHT_OF_WINDOW-10);

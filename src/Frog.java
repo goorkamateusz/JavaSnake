@@ -1,12 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.lang.Math;
 
 public class Frog extends GameObject
 {
-
     private Board board;
-    private Snake snake;
     private Vector2D position;
     private Color color = Color.magenta; // todo Zamienić na sprite
     private Vector2D direction = new Vector2D(0, 0);
@@ -17,30 +14,9 @@ public class Frog extends GameObject
     private PathFinding pathFinding;
     private Vector2D target;
 
-    public Frog(Board board, Snake snake)
+    public Frog(Board board)
     {
         this.board = board;
-        this.snake = snake;
-    }
-
-    public void MoveUp()
-    {
-        direction.set(0, -1);
-    }
-
-    public void MoveDown()
-    {
-        direction.set(0, 1);
-    }
-
-    public void MoveLeft()
-    {
-        direction.set(-1, 0);
-    }
-
-    public void MoveRight()
-    {
-        direction.set(1, 0);
     }
 
     @Override
@@ -76,7 +52,9 @@ public class Frog extends GameObject
                 if (path.size() > 2)
                     direction = path.get(1).clone().getSubtracted(path.get(0).clone());
 
+                board.GetCell(position).content = null;
                 position.add(direction);
+                board.GetCell(position).content = this;
 
                 if (position == target)
                     target = board.GetRandomEmptyCell().position.clone();
@@ -95,7 +73,7 @@ public class Frog extends GameObject
     @Override
     protected void onDestroy()
     {
-        game.initialize(new Frog(board, snake));
+        game.initialize(new Frog(board));
     }
 
     @Override

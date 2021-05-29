@@ -5,7 +5,7 @@ class MainWindow
     /**
      * Width of window
      */
-    private static final int WidthOfWindow = 200;
+    private static final int WidthOfWindow = 250;
 
     /**
      * Height of window

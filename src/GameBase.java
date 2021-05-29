@@ -205,8 +205,8 @@ public abstract class GameBase implements Runnable
 	{
 		for (GameObject gameObject : objectsToDestroy)
 		{
-			gameObjects.remove(gameObject);
 			gameObject.onDestroy();
+			gameObjects.remove(gameObject);
 		}
 		objectsToDestroy.clear();
 	}

@@ -12,18 +12,6 @@ public class FruitGenerator extends GameObject
         this.secondsBetweenFruits = secondsBetweenFruits;
     }
 
-    // todo To poleci do kosza, na razie jest tylko do debugu. Nie zalecam używać bo
-    // nie sprawdza czy cell jest pusty
-    public Fruit SpawnNewFruit(int x, int y)
-    {
-        Cell emptyCell = board.GetCell(x, y);
-        Fruit fruit = new Fruit(emptyCell, FruitType.Apple, this);
-        emptyCell.content = fruit;
-        game.initialize(fruit);
-        activeFruits++;
-        return fruit;
-    }
-
     public void DecreaseCounter()
     {
         activeFruits--;
@@ -41,7 +29,6 @@ public class FruitGenerator extends GameObject
     @Override
     protected void awake()
     {
-
     }
 
     @Override

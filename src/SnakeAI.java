@@ -51,7 +51,7 @@ public class SnakeAI extends Snake
     @Override
     protected void render(Graphics2D g)
     {
-        Font font = new Font("Arial", Font.PLAIN, 18);
+        Font font = new Font("Arial", Font.BOLD, 18);
         g.setFont(font);
         g.setColor(color);
         g.drawString("AI: " + points, Gameplay.WIDTH_OF_WINDOW - 80, Gameplay.HEIGHT_OF_WINDOW - 10);

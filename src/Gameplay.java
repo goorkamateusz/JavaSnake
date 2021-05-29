@@ -23,7 +23,7 @@ public class Gameplay extends GameBase {
         FruitGenerator fruitGenerator = new FruitGenerator(board, 10, 1);
         initialize(fruitGenerator);
 
-        initialize(new Frog(board, snake));
-        initialize(new Frog(board, player));
+        initialize(new Frog(board));
+        initialize(new Frog(board));
     }
 }

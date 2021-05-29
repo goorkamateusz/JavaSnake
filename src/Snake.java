@@ -88,7 +88,6 @@ public abstract class Snake extends GameObject
     @Override
     protected void start()
     {
-        // todo Dopytać czemy jak się da tutaj to co jest w Awake to się wywala?
         setTimer(TIMER_BASE_VALUE);
     }
 
@@ -143,40 +142,32 @@ public abstract class Snake extends GameObject
         body.clear();
     }
 
-    // todo
     private boolean IsColliding(Cell nextCell)
     {
-        // Jeśli ściana to popełnij seppuku
         if (nextCell instanceof Wall)
         {
             dead();
             return true;
         }
 
-        // Jeśli snake part to popełnij seppuku
         if (nextCell.content instanceof SnakePart)
         {
             dead();
             return true;
         }
 
-        // Jeśli owocek dodaj punkty i dostań ogon
         if (nextCell.content instanceof Fruit)
         {
-            // Tutaj bym chciał zrobić casta ale nie umiem x.x
-            // Fruit fruit = Fruit.cast(nextCell.content);
-
             newPartsNumber++;
             points++;
             game.destroy(nextCell.content);
 
         }
 
-        // Jeśli żaba to ją zjedz
         if (nextCell.content instanceof Frog)
         {
             newPartsNumber++;
-            points += 5;
+            points += 2;
             game.destroy(nextCell.content);
         }
 
