@@ -35,7 +35,7 @@ public class SnakeAI extends Snake
                 thread = null;
 
                 var path = pathFinding.Result;
-                if (path.size() > 2)
+                if (path.size() > 1)
                     direction = path.get(1).clone().getSubtracted(path.get(0).clone());
             }
             catch (InterruptedException e)
