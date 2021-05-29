@@ -58,6 +58,9 @@ public class Frog extends GameObject
     {
         if (timerClockDown())
         {
+            if (snake.Length() == 0)
+                return;
+
             setTimer(TIMER_BASE_VALUE);
 
             int horizontalDistanceFromSnake = position.x - snake.Head().position.x;
@@ -98,6 +101,12 @@ public class Frog extends GameObject
             }
 
         }
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        game.initialize(new Frog(board, snake));
     }
 
     @Override

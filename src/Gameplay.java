@@ -1,7 +1,7 @@
 public class Gameplay extends GameBase {
 
-    public static final int CELLS_X = 30;
-    public static final int CELLS_Y = 30;
+    public static final int CELLS_X = 40;
+    public static final int CELLS_Y = 40;
     public static final int CELL_HEIGHT = 10;
     public static final int CELL_WIDTH = 10;
     public static final int BOTTOM_TEXT_AREA = 30;
@@ -23,7 +23,7 @@ public class Gameplay extends GameBase {
         FruitGenerator fruitGenerator = new FruitGenerator(board, 10, 1);
         initialize(fruitGenerator);
 
-        Frog frog = new Frog(board,snake);
-        // initialize(frog);
+        initialize(new Frog(board, snake));
+        initialize(new Frog(board, player));
     }
 }

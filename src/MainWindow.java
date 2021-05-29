@@ -5,17 +5,17 @@ class MainWindow
     /**
      * Width of window
      */
-    private static final int WidthOfWindow = 400;
+    private static final int WidthOfWindow = 200;
 
     /**
      * Height of window
      */
-    private static final int HeightOfWindow = 500;
+    private static final int HeightOfWindow = WidthOfWindow;
 
     /**
      * Button height
      */
-    private static final int ButtonHeight = 40;
+    private static final int ButtonHeight = 60;
 
     /**
      * Button width
@@ -50,10 +50,10 @@ class MainWindow
         startButton = new JButton("Start");
         startButton.setBounds((WidthOfWindow - ButtonWidth) / 2, (HeightOfWindow - ButtonHeight * 2) / 2, ButtonWidth,
                 ButtonHeight);
-        // startButton.addActionListener(e ->
-        // {
+        startButton.addActionListener(e ->
+        {
             startGame();
-        // });
+        });
         mainFrame.add(startButton);
     }
 

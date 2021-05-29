@@ -13,7 +13,7 @@ public abstract class Snake extends GameObject
 
     protected int points = 0; // todo licznik do punktów
 
-    protected final int TIMER_BASE_VALUE = 200;
+    protected final int TIMER_BASE_VALUE = 150;
 
     public Snake(Board board)
     {
@@ -23,6 +23,11 @@ public abstract class Snake extends GameObject
     public SnakePart Head()
     {
         return body.get(0);
+    }
+
+    public int Length()
+    {
+        return body.size();
     }
 
     public void MoveUp()
@@ -162,6 +167,7 @@ public abstract class Snake extends GameObject
             // Fruit fruit = Fruit.cast(nextCell.content);
 
             newPartsNumber++;
+            points++;
             game.destroy(nextCell.content);
 
         }
@@ -170,6 +176,7 @@ public abstract class Snake extends GameObject
         if (nextCell.content instanceof Frog)
         {
             newPartsNumber++;
+            points += 5;
             game.destroy(nextCell.content);
         }
 

@@ -34,6 +34,6 @@ public class SnakeAI extends Snake
         Font font = new Font("Arial", Font.PLAIN, 18);
         g.setFont(font);
         g.setColor(color);
-        g.drawString("AI: " + body.size(), Gameplay.WIDTH_OF_WINDOW-80, Gameplay.HEIGHT_OF_WINDOW-10);
+        g.drawString("AI: " + points, Gameplay.WIDTH_OF_WINDOW-80, Gameplay.HEIGHT_OF_WINDOW-10);
     }
 }
