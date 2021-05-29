@@ -8,9 +8,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.KeyListener;
 
+/**
+ * Main class of game.
+ * Responsibility: main loop, game objects and window.
+ */
 public abstract class GameBase implements Runnable
 {
-
 	public static final int DEFAULT_WIDTH_OF_WINDOW = 1000;
 	public static final int DEFAULT_HEIGHT_OF_WINDOW = 700;
 
@@ -28,6 +31,9 @@ public abstract class GameBase implements Runnable
 	private boolean running = true;
 	private float deltaTime = 0;
 
+	/**
+	 * Awake of game.
+	 */
 	public GameBase()
 	{
 		GameObject.game = this;
@@ -51,6 +57,10 @@ public abstract class GameBase implements Runnable
 		objectsToDestroy.add(gameObject);
 	}
 
+	/**
+	 * Add new key listener.
+	 * @param listener - new key listener.
+	 */
 	public void addKeyListener(KeyListener listener)
 	{
 		canvas.addKeyListener(listener);
@@ -126,27 +136,76 @@ public abstract class GameBase implements Runnable
 		return deltaTime;
 	}
 
+	/**
+	 * @param widthOfWindow
+	 * @param heightOfWindow
+	 * @param title
+	 */
+	protected void openWindow(int widthOfWindow, int heightOfWindow, String title)
+	{
+		frame = new JFrame(title);
+
+		JPanel panel = (JPanel) frame.getContentPane();
+		panel.setPreferredSize(new Dimension(widthOfWindow, heightOfWindow));
+		panel.setLayout(null);
+
+		canvas = new Canvas();
+		canvas.setBounds(0, 0, widthOfWindow, heightOfWindow);
+		canvas.setIgnoreRepaint(true);
+
+		panel.add(canvas);
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setResizable(false);
+		frame.setVisible(true);
+
+		canvas.createBufferStrategy(2);
+		bufferStrategy = canvas.getBufferStrategy();
+
+		canvas.requestFocus();
+	}
+
+	/**
+	 * Scene awake on open the game.
+	 */
 	protected void awakeScene()
 	{
 		openWindow(DEFAULT_WIDTH_OF_WINDOW, DEFAULT_HEIGHT_OF_WINDOW, "Game");
 	}
 
+	/**
+	 * Invoke before main loop.
+	 */
 	protected void startScene()
 	{
 	}
 
+	/**
+	 * Update scene before game objects.
+	 */
 	protected void updateScene()
 	{
 	}
 
+	/**
+	 * Destroy scene after game objects.
+	 */
 	protected void onDestroyScene()
 	{
 	}
 
+	/**
+	 * Render scenes before game objects.
+	 * @param g - Graphics2D
+	 */
 	protected void renderScene(Graphics2D g)
 	{
 	}
 
+	/**
+	 * Awake scene and game objects.
+	 */
 	private void awake()
 	{
 		awakeScene();
@@ -154,6 +213,9 @@ public abstract class GameBase implements Runnable
 			gameObject.awake();
 	}
 
+	/**
+	 * Start scene and game objects.
+	 */
 	private void start()
 	{
 		startScene();
@@ -161,6 +223,9 @@ public abstract class GameBase implements Runnable
 			gameObject.start();
 	}
 
+	/**
+	 * Update scene and game objects.
+	 */
 	private void update()
 	{
 		updateScene();
@@ -168,6 +233,9 @@ public abstract class GameBase implements Runnable
 			gameObject.update();
 	}
 
+	/**
+	 * Destroy scene and game objects.
+	 */
 	private void onDestroy()
 	{
 		for (GameObject gameObject : gameObjects)
@@ -175,6 +243,10 @@ public abstract class GameBase implements Runnable
 		onDestroyScene();
 	}
 
+	/**
+	 * Render scene and game objects.
+	 * @param g
+	 */
 	private void render(Graphics2D g)
 	{
 		renderScene(g);
@@ -209,30 +281,5 @@ public abstract class GameBase implements Runnable
 			gameObjects.remove(gameObject);
 		}
 		objectsToDestroy.clear();
-	}
-
-	protected void openWindow(int widthOfWindow, int heightOfWindow, String title)
-	{
-		frame = new JFrame(title);
-
-		JPanel panel = (JPanel) frame.getContentPane();
-		panel.setPreferredSize(new Dimension(widthOfWindow, heightOfWindow));
-		panel.setLayout(null);
-
-		canvas = new Canvas();
-		canvas.setBounds(0, 0, widthOfWindow, heightOfWindow);
-		canvas.setIgnoreRepaint(true);
-
-		panel.add(canvas);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.pack();
-		frame.setResizable(false);
-		frame.setVisible(true);
-
-		canvas.createBufferStrategy(2);
-		bufferStrategy = canvas.getBufferStrategy();
-
-		canvas.requestFocus();
 	}
 }

@@ -1,36 +1,34 @@
 import javax.swing.*;
 
+/**
+ * Main UI window of game.
+ */
 class MainWindow
 {
     /**
      * Width of window
      */
-    private static final int WidthOfWindow = 250;
+    private static final int WIDTH_OF_WINDOW = 250;
 
     /**
      * Height of window
      */
-    private static final int HeightOfWindow = WidthOfWindow;
+    private static final int HEIGHT_OF_WINDOW = WIDTH_OF_WINDOW;
 
     /**
      * Button height
      */
-    private static final int ButtonHeight = 60;
+    private static final int BUTTON_HEIGHT = 60;
 
     /**
      * Button width
      */
-    private static final int ButtonWidth = 100;
+    private static final int BUTTON_WIDTH = 100;
 
     /**
      * Main frame of window
      */
     private JFrame mainFrame;
-
-    /**
-     * Game
-     */
-    private Gameplay game;
 
     /**
      * Start button
@@ -40,16 +38,16 @@ class MainWindow
     /**
      * MainWindow constructor
      */
-    MainWindow()
+    public MainWindow()
     {
         mainFrame = new JFrame();
-        mainFrame.setSize(WidthOfWindow, HeightOfWindow);
+        mainFrame.setSize(WIDTH_OF_WINDOW, HEIGHT_OF_WINDOW);
         mainFrame.setLayout(null);
         mainFrame.setVisible(true);
 
         startButton = new JButton("Start");
-        startButton.setBounds((WidthOfWindow - ButtonWidth) / 2, (HeightOfWindow - ButtonHeight * 2) / 2, ButtonWidth,
-                ButtonHeight);
+        startButton.setBounds((WIDTH_OF_WINDOW - BUTTON_WIDTH) / 2, (HEIGHT_OF_WINDOW - BUTTON_HEIGHT * 2) / 2,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
         startButton.addActionListener(e ->
         {
             startGame();
@@ -57,10 +55,12 @@ class MainWindow
         mainFrame.add(startButton);
     }
 
+    /**
+     * Start game button action.
+     */
     public void startGame()
     {
         startButton.setVisible(false);
-        game = new Gameplay();
-        new Thread(game).start();
+        new Thread(new Gameplay()).start();
     }
 }

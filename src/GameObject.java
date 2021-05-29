@@ -1,5 +1,8 @@
 import java.awt.*;
 
+/**
+ * Game objects class, base of objects on the scenes.
+ */
 public class GameObject
 {
     /**
