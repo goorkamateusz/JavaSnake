@@ -13,6 +13,7 @@ public class SnakePart extends GameObject
         this.color = color;
     }
 
+
     @Override
     protected void render(Graphics2D g)
     {

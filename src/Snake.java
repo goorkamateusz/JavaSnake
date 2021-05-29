@@ -57,6 +57,7 @@ public abstract class Snake extends GameObject
     protected void dead()
     {
         for (SnakePart snakePart : body) {
+            board.GetCell(snakePart.position).content = null;
             game.destroy(snakePart);
         }
         game.destroy(this);
