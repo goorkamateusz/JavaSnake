@@ -15,8 +15,11 @@ public class Gameplay extends GameBase {
         Board board = new Board(10);
 
 
-        Snake snake = new Snake(board);
+        Snake snake = new Snake(board, true);
         initialize(snake);
+
+        Snake player = new Snake(board, false);
+        initialize(player);
 
         FruitGenerator fruitGenerator = new FruitGenerator(board, 10, 1);
         initialize(fruitGenerator);
