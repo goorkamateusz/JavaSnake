@@ -11,7 +11,7 @@ public class Frog extends GameObject
     private final int TIMER_BASE_VALUE = 500;
 
     private Thread thread = null;
-    private PathFinding pathFinding;
+    private Pathfinding pathFinding;
     private Vector2D target;
 
     public Frog(Board board)
@@ -32,7 +32,7 @@ public class Frog extends GameObject
     {
         timer = TIMER_BASE_VALUE;
         target = board.GetRandomEmptyCell().position.clone();
-        pathFinding = new PathFinding(position.clone(), target.clone(), board);
+        pathFinding = new Pathfinding(position.clone(), target.clone(), board);
         thread = new Thread(pathFinding);
         thread.start();
     }
@@ -56,7 +56,7 @@ public class Frog extends GameObject
                 position.add(direction);
                 board.GetCell(position).content = this;
 
-                if (position == target)
+                if (Vector2D.subtract(position, target).getLengthSqrt() < 3)
                     target = board.GetRandomEmptyCell().position.clone();
             }
             catch (InterruptedException e)
@@ -64,7 +64,7 @@ public class Frog extends GameObject
                 System.out.println(e);
             }
 
-            pathFinding = new PathFinding(position.clone(), target.clone(), board);
+            pathFinding = new Pathfinding(Vector2D.add(position, direction), target.clone(), board);
             thread = new Thread(pathFinding);
             thread.start();
         }

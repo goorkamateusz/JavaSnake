@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 public class SnakeAI extends Snake
 {
     private Thread thread = null;
-    private PathFinding pathFinding;
+    private Pathfinding pathFinding;
 
     public SnakeAI(Board board)
     {
@@ -37,7 +37,7 @@ public class SnakeAI extends Snake
         if (closestFruit == null)
             closestFruit = board.GetRandomEmptyCell();
 
-        pathFinding = new PathFinding(Head().position.clone(), closestFruit.position.clone(), board);
+        pathFinding = new Pathfinding(Vector2D.add(Head().position, direction), closestFruit.position.clone(), board);
         thread = new Thread(pathFinding);
         thread.start();
     }

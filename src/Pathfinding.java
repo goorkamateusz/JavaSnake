@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.lang.Math;
 
-public class PathFinding implements Runnable
+public class Pathfinding implements Runnable
 {
     public Vector2D StartingPosition;
     public Vector2D EndingPosition;
@@ -13,7 +13,7 @@ public class PathFinding implements Runnable
     private ArrayList<Node> closed;
     private ArrayList<Vector2D> path;
 
-    public PathFinding(Vector2D starting, Vector2D ending, Board board)
+    public Pathfinding(Vector2D starting, Vector2D ending, Board board)
     {
         StartingPosition = starting;
         EndingPosition = ending;
