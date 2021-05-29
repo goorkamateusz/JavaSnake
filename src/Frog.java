@@ -13,6 +13,10 @@ public class Frog extends GameObject
 
     private final int TIMER_BASE_VALUE = 500;
 
+    private Thread thread = null;
+    private PathFinding pathFinding;
+    private Vector2D target;
+
     public Frog(Board board, Snake snake)
     {
         this.board = board;
@@ -51,6 +55,10 @@ public class Frog extends GameObject
     protected void start()
     {
         timer = TIMER_BASE_VALUE;
+        target = board.GetRandomEmptyCell().position.clone();
+        pathFinding = new PathFinding(position.clone(), target.clone(), board);
+        thread = new Thread(pathFinding);
+        thread.start();
     }
 
     @Override
@@ -58,48 +66,29 @@ public class Frog extends GameObject
     {
         if (timerClockDown())
         {
-            if (snake.Length() == 0)
-                return;
-
             setTimer(TIMER_BASE_VALUE);
 
-            int horizontalDistanceFromSnake = position.x - snake.Head().position.x;
-            int verticalDistanceFromSnake = position.y - snake.Head().position.y;
+            try
+            {
+                thread.join();
 
-            if (Math.abs(horizontalDistanceFromSnake) < Math.abs(verticalDistanceFromSnake))
+                var path = pathFinding.Result;
+                if (path.size() > 2)
+                    direction = path.get(1).clone().getSubtracted(path.get(0).clone());
+
+                position.add(direction);
+
+                if (position == target)
+                    target = board.GetRandomEmptyCell().position.clone();
+            }
+            catch (InterruptedException e)
             {
-                if (verticalDistanceFromSnake < 0)
-                    MoveUp();
-                else
-                    MoveDown();
-            } 
-            else
-            {
-                if (horizontalDistanceFromSnake < 0)
-                    MoveLeft();
-                else
-                    MoveRight();
+                System.out.println(e);
             }
 
-            Vector2D newPosition = position.clone();
-            newPosition.add(direction);
-
-            Cell thisCell = board.GetCell(position);
-            thisCell.content = null;
-
-            if (board.GetCell(newPosition) instanceof Wall)
-            {
-                Cell emptyCell = board.GetClosestEmptyCell(thisCell);
-
-                position.set(emptyCell.position);
-                emptyCell.content = this;
-            } else
-            {
-                Cell emptyCell = board.GetCell(newPosition);
-                position.set(newPosition.clone());
-                emptyCell.content = this;
-            }
-
+            pathFinding = new PathFinding(position.clone(), target.clone(), board);
+            thread = new Thread(pathFinding);
+            thread.start();
         }
     }
 
