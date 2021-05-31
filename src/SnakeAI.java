@@ -15,6 +15,7 @@ public class SnakeAI extends Snake
         aiId = AICounter % 10;
         AICounter++;
         color = new Color(0 + 25*aiId, 0, 255 - 25*aiId);
+        newPartsNumber = Random.Range(2, 6);
     }
 
     private SnakeAI(Board board, int id)
