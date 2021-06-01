@@ -1,8 +1,14 @@
-
+/**
+ * Class to visualize enviroment in game.
+ */
 public class Board extends GameObject
 {
     public Cell[][] board = new Cell[Gameplay.CELLS_X][Gameplay.CELLS_Y];
 
+    /**
+     * Constructor set borders of scene, spawn obstacles and fill empty spaces with
+     * cells.
+     */
     public Board(int obstaclesCount)
     {
         SetBorders();
@@ -11,16 +17,25 @@ public class Board extends GameObject
         Initialize();
     }
 
+    /**
+     * Return cell in position.
+     */
     public Cell GetCell(int x, int y)
     {
         return board[x][y];
     }
 
+    /**
+     * Return cell in position.
+     */
     public Cell GetCell(Vector2D lastPosition)
     {
         return GetCell(lastPosition.x, lastPosition.y);
     }
 
+    /**
+     * Return first empty cell starting from (0,0) else return null.
+     */
     public Cell GetFirstEmptyCell()
     {
         for (Cell[] row : board)
@@ -30,6 +45,9 @@ public class Board extends GameObject
         return null;
     }
 
+    /**
+     * Return random empty cell on board. If there is non return null.
+     */
     public Cell GetRandomEmptyCell()
     {
         while (true)
@@ -40,6 +58,9 @@ public class Board extends GameObject
         }
     }
 
+    /**
+     * Return empty cell closest to cell.
+     */
     public Cell GetClosestEmptyCell(Cell cell)
     {
         if (0 <= cell.position.x + 1 && cell.position.x + 1 < Gameplay.CELLS_X
@@ -57,18 +78,21 @@ public class Board extends GameObject
         return null;
     }
 
+    /**
+     * Return fruit closest to origin else return null.
+     */
     public Cell GetClosestFruit(Cell origin)
     {
         int distance = 100000;
         Cell cellWithFruit = null;
-        for (Cell[] cells : board) 
+        for (Cell[] cells : board)
         {
-            for (Cell cell : cells) 
+            for (Cell cell : cells)
             {
-                if(cell.content instanceof Fruit)
+                if (cell.content instanceof Fruit)
                 {
                     int temp = origin.position.clone().distanceSq(cell.position.clone());
-                    if(temp < distance)
+                    if (temp < distance)
                     {
                         distance = temp;
                         cellWithFruit = cell;
@@ -79,11 +103,18 @@ public class Board extends GameObject
         return cellWithFruit;
     }
 
+    /**
+     * Check if cell is not obstacle and is empty.
+     */
+
     private boolean IsEmpty(Cell cell)
     {
         return !(cell instanceof Wall) && cell.content == null;
     }
 
+    /**
+     * Spawn Wall instead of Cell at borders of scene.
+     */
     private void SetBorders()
     {
         for (int i = 0; i < Gameplay.CELLS_X; i++)
@@ -98,6 +129,9 @@ public class Board extends GameObject
         }
     }
 
+    /**
+     * Spawn random Wall instead of Cell at scene.
+     */
     private void RandomObstacles(int obstaclesCount)
     {
         for (int i = 0; i < obstaclesCount; i++)
@@ -111,6 +145,9 @@ public class Board extends GameObject
         }
     }
 
+    /**
+     * Fill board with empty cell.
+     */
     private void FillWithEmpty()
     {
         for (int i = 0; i < Gameplay.CELLS_X; i++)
@@ -121,6 +158,9 @@ public class Board extends GameObject
                 }
     }
 
+    /**
+     * Initialize every object on Board.
+     */
     private void Initialize()
     {
         for (Cell[] cells : board)

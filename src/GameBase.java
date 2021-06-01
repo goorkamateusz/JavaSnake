@@ -41,7 +41,7 @@ public abstract class GameBase implements Runnable
 	}
 
 	/**
-	 * Initialize gameobject on gameplay
+	 * Initialize gameobject on gameplay.
 	 */
 	public void initialize(GameObject gameObject)
 	{
@@ -50,7 +50,7 @@ public abstract class GameBase implements Runnable
 	}
 
 	/**
-	 * Destroy gameobject and invoke OnDestroy()
+	 * Destroy gameobject and invoke OnDestroy().
 	 */
 	public void destroy(GameObject gameObject)
 	{
@@ -67,7 +67,7 @@ public abstract class GameBase implements Runnable
 	}
 
 	/**
-	 * Main loop of game
+	 * Main loop of game.
 	 */
 	public void run()
 	{
@@ -113,7 +113,7 @@ public abstract class GameBase implements Runnable
 	}
 
 	/**
-	 * stop and finish main loop
+	 * Stop and finish main loop.
 	 */
 	public void finish()
 	{
@@ -121,7 +121,7 @@ public abstract class GameBase implements Runnable
 	}
 
 	/**
-	 * Get gameobjects in gameplay
+	 * Get gameobjects in gameplay.
 	 */
 	public List<GameObject> getGameObjects()
 	{
@@ -129,7 +129,7 @@ public abstract class GameBase implements Runnable
 	}
 
 	/**
-	 * DeltaTime of current frame
+	 * DeltaTime of current frame.
 	 */
 	protected float getDeltaTime()
 	{

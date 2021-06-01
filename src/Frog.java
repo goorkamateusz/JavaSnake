@@ -1,6 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+/**
+ * GameObject which run away from snake.
+ */
 public class Frog extends GameObject
 {
     private Board board;
@@ -14,6 +17,9 @@ public class Frog extends GameObject
     private Pathfinding pathFinding;
     private Vector2D target;
 
+    /**
+     * Constructor pass reference to frog.
+     */
     public Frog(Board board)
     {
         this.board = board;

@@ -6,17 +6,17 @@ import java.awt.*;
 public class GameObject
 {
     /**
-     * Reference to gameplay
+     * Reference to gameplay.
      */
     protected static GameBase game;
 
     /**
-     * Timer value
+     * Timer value.
      */
     protected float timer;
 
     /**
-     * Like Time.deltaTime
+     * Like Time.deltaTime in Unity.
      */
     protected float getDeltaTime()
     {
@@ -24,7 +24,7 @@ public class GameObject
     }
 
     /**
-     * Set timer in milliseconds
+     * Set timer in milliseconds.
      */
     protected void setTimer(float milliseconds)
     {
@@ -32,7 +32,7 @@ public class GameObject
     }
 
     /**
-     * Clock down timer
+     * Clock down timer.
      */
     protected boolean timerClockDown()
     {
@@ -40,7 +40,7 @@ public class GameObject
     }
 
     /**
-     * Like unity Awake (invoke on create of object or create gameplay)
+     * Like unity Awake (invoke on create of object or create gameplay).
      */
     protected void awake()
     {
@@ -48,28 +48,28 @@ public class GameObject
 
     /**
      * Like unity Start (invoke on first frame of object like or before begin main
-     * loop)
+     * loop).
      */
     protected void start()
     {
     }
 
     /**
-     * Like unity Update (invoke after render on each frames)
+     * Like unity Update (invoke after render on each frames).
      */
     protected void update()
     {
     }
 
     /**
-     * Like unity OnDestroy (invoke after destroy object or on end of game)
+     * Like unity OnDestroy (invoke after destroy object or on end of game).
      */
     protected void onDestroy()
     {
     }
 
     /**
-     * Method who render a object on screen (invoke on begin of each frames)
+     * Method who render a object on screen (invoke on begin of each frames).
      */
     protected void render(Graphics2D g)
     {

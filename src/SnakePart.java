@@ -1,12 +1,17 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+    /**
+     * GameObject to build snake.
+     */
 public class SnakePart extends GameObject
 {
-    // Sprite sprite
     public Vector2D position;
     protected Color color;
 
+        /**
+     * Constructor to set initial positions and color.
+     */
     public SnakePart(Vector2D position, Color color)
     {
         this.position = position.clone();

@@ -3,6 +3,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.awt.Color;
 
+/**
+ * GameObject that implements snake. Check colission each time it moves.
+ */
 public abstract class Snake extends GameObject
 {
     protected Board board;
@@ -15,48 +18,69 @@ public abstract class Snake extends GameObject
 
     protected final int TIMER_BASE_VALUE = 150;
 
+    /**
+     * Constructor pass reference to board.
+     */
     public Snake(Board board)
     {
         this.board = board;
     }
 
+    /**
+     * Return head of the snake.
+     */
     public SnakePart Head()
     {
         return body.get(0);
     }
 
-    public int Length()
-    {
-        return body.size();
-    }
-
+    /**
+     * Set snake direction upwards.
+     */
     public void MoveUp()
     {
         direction.set(0, -1);
     }
 
+    /**
+     * Set snake direction downwards.
+     */
     public void MoveDown()
     {
         direction.set(0, 1);
     }
 
+    /**
+     * Set snake direction to the left.
+     */
     public void ModeLeft()
     {
         direction.set(-1, 0);
     }
 
+    /**
+     * Set snake direction to the right.
+     */
     public void MoveRight()
     {
         direction.set(1, 0);
     }
 
+        /**
+     * Control of snake depending if it's player od AI
+     */
     protected void control()
     {
+        
     }
 
+    /**
+     * Destroy all snake's parts and destroy snake.
+     */
     protected void dead()
     {
-        for (SnakePart snakePart : body) {
+        for (SnakePart snakePart : body)
+        {
             board.GetCell(snakePart.position).content = null;
             game.destroy(snakePart);
         }
@@ -125,8 +149,6 @@ public abstract class Snake extends GameObject
                 lastPosition = tmp;
             }
 
-            control();
-
             if (newPartsNumber > 0)
             {
                 SnakePart newPart = new SnakePart(lastPosition, color);
@@ -139,10 +161,14 @@ public abstract class Snake extends GameObject
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
         body.clear();
     }
 
+    /**
+     * Check if snake is colliding with anything
+     */
     private boolean IsColliding(Cell nextCell)
     {
         if (nextCell instanceof Wall)

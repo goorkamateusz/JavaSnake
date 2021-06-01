@@ -2,6 +2,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+    /**
+     * Class of snake AI.
+     */
 public class SnakeAI extends Snake
 {
     static private int AICounter;
@@ -9,6 +12,9 @@ public class SnakeAI extends Snake
     private Thread thread = null;
     private Pathfinding pathFinding;
 
+    /**
+     * Constructor that pass reference to board.
+     */
     public SnakeAI(Board board)
     {
         super(board);
@@ -25,6 +31,9 @@ public class SnakeAI extends Snake
         color = new Color(0 + 25*aiId, 0, 255 - 25*aiId);
     }
 
+        /**
+     * This method move snake using pathfinding.
+     */
     @Override
     protected void control()
     {
@@ -54,6 +63,7 @@ public class SnakeAI extends Snake
         thread.start();
     }
 
+    
     @Override
     protected void onDestroy()
     {

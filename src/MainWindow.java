@@ -6,37 +6,37 @@ import javax.swing.*;
 class MainWindow
 {
     /**
-     * Width of window
+     * Width of window.
      */
     private static final int WIDTH_OF_WINDOW = 250;
 
     /**
-     * Height of window
+     * Height of window.
      */
     private static final int HEIGHT_OF_WINDOW = WIDTH_OF_WINDOW;
 
     /**
-     * Button height
+     * Button height.
      */
     private static final int BUTTON_HEIGHT = 60;
 
     /**
-     * Button width
+     * Button width.
      */
     private static final int BUTTON_WIDTH = 100;
 
     /**
-     * Main frame of window
+     * Main frame of window.
      */
     private JFrame mainFrame;
 
     /**
-     * Start button
+     * Start button.
      */
     private JButton startButton;
 
     /**
-     * MainWindow constructor
+     * MainWindow constructor.
      */
     public MainWindow()
     {

@@ -1,7 +1,13 @@
 import java.awt.Color;
 
+/**
+ * Class to implement wall as obstacle.
+ */
 public class Wall extends Cell
 {
+    /**
+     * Set wall positions.
+     */
     public Wall(int x, int y)
     {
         super(x, y);
@@ -11,17 +17,5 @@ public class Wall extends Cell
     protected void awake()
     {
         color = Color.BLACK;
-    }
-
-    @Override
-    protected void start()
-    {
-
-    }
-
-    @Override
-    protected void update()
-    {
-
     }
 }

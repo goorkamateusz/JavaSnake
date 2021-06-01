@@ -6,6 +6,9 @@ enum FruitType
     Apple,
 }
 
+/**
+ * Static GameObject which grants points to Snake after collision.
+ */
 public class Fruit extends GameObject
 {
 
@@ -16,6 +19,10 @@ public class Fruit extends GameObject
 
     private Color color = Color.red; // todo zamienić color na sprite
 
+    /**
+     * Costructor that set position and type of object. Pass reference to fruit
+     * generator,
+     */
     public Fruit(Cell parentCell, FruitType type, FruitGenerator fruitGenerator)
     {
         this.parentCell = parentCell;
@@ -23,16 +30,6 @@ public class Fruit extends GameObject
         this.fruitGenerator = fruitGenerator;
     }
 
-    public int Points()
-    {
-        switch (type) {
-        case Apple:
-            return 10;
-
-        default:
-            return 0;
-        }
-    }
 
     @Override
     protected void render(Graphics2D g)
