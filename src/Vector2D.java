@@ -1,3 +1,6 @@
+    /**
+     * Class that implements 2D Vector with methods to do basic calculations.
+     */
 public class Vector2D
 {
     public int x;

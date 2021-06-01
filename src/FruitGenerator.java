@@ -1,3 +1,6 @@
+/**
+ * Class generate fruit on random position.
+ */
 public class FruitGenerator extends GameObject
 {
     private Board board;
@@ -5,6 +8,10 @@ public class FruitGenerator extends GameObject
     private float secondsBetweenFruits;
     private int maxFruits;
 
+    /**
+     * Constructor pass reference to board, set max fruits quantity and interwals of
+     * time between new fruits spawn.
+     */
     public FruitGenerator(Board board, int maxFruits, float secondsBetweenFruits)
     {
         this.board = board;
@@ -12,11 +19,17 @@ public class FruitGenerator extends GameObject
         this.secondsBetweenFruits = secondsBetweenFruits;
     }
 
+    /**
+     * Decrease counter.
+     */
     public void DecreaseCounter()
     {
         activeFruits--;
     }
 
+        /**
+     * Spawn new fruit.
+     */
     private void SpawnNewFruit()
     {
         Cell emptyCell = board.GetRandomEmptyCell();
@@ -24,11 +37,6 @@ public class FruitGenerator extends GameObject
         emptyCell.content = fruit;
         game.initialize(fruit);
         activeFruits++;
-    }
-
-    @Override
-    protected void awake()
-    {
     }
 
     @Override

@@ -4,8 +4,14 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+    /**
+     * Snake which can be move by player.
+     */
 public class SnakePlayer extends Snake implements KeyListener
 {
+        /**
+     * Pass the reference to board.
+     */
     public SnakePlayer(Board board)
     {
         super(board);

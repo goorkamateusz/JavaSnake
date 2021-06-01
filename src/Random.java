@@ -1,3 +1,6 @@
+    /**
+     * Class to return random values in range.
+     */
 public class Random
 {
     public static int Range(int min, int max)

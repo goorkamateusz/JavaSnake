@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.lang.Math;
 
+/**
+ * Implementation of A* algorithm to find best path. Can be run on separate.
+ * thread.
+ */
 public class Pathfinding implements Runnable
 {
     public Vector2D StartingPosition;
@@ -13,6 +17,9 @@ public class Pathfinding implements Runnable
     private ArrayList<Node> closed;
     private ArrayList<Vector2D> path;
 
+    /**
+     * Start game button action.
+     */
     public Pathfinding(Vector2D starting, Vector2D ending, Board board)
     {
         StartingPosition = starting;
@@ -20,12 +27,18 @@ public class Pathfinding implements Runnable
         Board = board;
     }
 
+    /**
+     * Run the algorithm.
+     */
     @Override
     public void run()
     {
         Result = A_Star(StartingPosition, EndingPosition, Board);
     }
 
+    /**
+     * Main algorithm.
+     */
     public ArrayList<Vector2D> A_Star(Vector2D startingPosition, Vector2D endingPosition, Board board)
     {
         open = new ArrayList<Node>();
@@ -38,7 +51,7 @@ public class Pathfinding implements Runnable
         {
             Node q = new Node(new Vector2D(), new Vector2D(), 1000000, 1000000);
 
-            for (Node node : open) 
+            for (Node node : open)
             {
                 if (node.gCost + node.hCost < q.gCost + q.hCost)
                     q = node;
@@ -59,19 +72,23 @@ public class Pathfinding implements Runnable
 
             try
             {
-                //Tutaj dodać sprawdzanie innych rzeczy np. obecność innego snake'a
+                // Tutaj dodać sprawdzanie innych rzeczy np. obecność innego snake'a
                 if (!(board.GetCell(up) instanceof Wall) && !(board.GetCell(up).content instanceof SnakePart))
-                    Successors.add(new Node(up.clone(), q.position.clone(), Cost(startingPosition, up), Cost(endingPosition, up)));
+                    Successors.add(new Node(up.clone(), q.position.clone(), Cost(startingPosition, up),
+                            Cost(endingPosition, up)));
                 if (!(board.GetCell(down) instanceof Wall) && !(board.GetCell(down).content instanceof SnakePart))
-                    Successors.add(new Node(down.clone(), q.position.clone(), Cost(startingPosition, down), Cost(endingPosition, down)));
+                    Successors.add(new Node(down.clone(), q.position.clone(), Cost(startingPosition, down),
+                            Cost(endingPosition, down)));
                 if (!(board.GetCell(right) instanceof Wall) && !(board.GetCell(right).content instanceof SnakePart))
-                    Successors.add(new Node(right.clone(), q.position.clone(), Cost(startingPosition, right), Cost(endingPosition, right)));
+                    Successors.add(new Node(right.clone(), q.position.clone(), Cost(startingPosition, right),
+                            Cost(endingPosition, right)));
                 if (!(board.GetCell(left) instanceof Wall) && !(board.GetCell(left).content instanceof SnakePart))
-                    Successors.add(new Node(left.clone(), q.position.clone(), Cost(startingPosition, left), Cost(endingPosition, left)));
+                    Successors.add(new Node(left.clone(), q.position.clone(), Cost(startingPosition, left),
+                            Cost(endingPosition, left)));
             }
             catch (ArrayIndexOutOfBoundsException e)
             {
-                
+
             }
 
             for (Node node : Successors)
@@ -81,10 +98,10 @@ public class Pathfinding implements Runnable
                     path.add(node.position.clone());
                     path.add(node.parentPosition.clone());
 
-                    for (Node qParent : closed) 
+                    for (Node qParent : closed)
                     {
                         if (qParent.position.equalValue(q.parentPosition))
-                        PrintWay(qParent);
+                            PrintWay(qParent);
                     }
 
                     Collections.reverse(path);
@@ -94,7 +111,7 @@ public class Pathfinding implements Runnable
                 }
             }
 
-            for (Node node : Successors) 
+            for (Node node : Successors)
             {
                 boolean isOnClosed = false;
                 boolean isOnOpen = false;
@@ -119,17 +136,16 @@ public class Pathfinding implements Runnable
                     {
                         int fCost = node.gCost + node.hCost;
 
-                        for (Node openNode : open) 
+                        for (Node openNode : open)
                         {
-                            if (openNode.position.equalValue(node.position)  && openNode.gCost + openNode.hCost > fCost)
+                            if (openNode.position.equalValue(node.position) && openNode.gCost + openNode.hCost > fCost)
                             {
                                 openNode.parentPosition = q.position.clone();
                                 openNode.gCost = node.gCost;
                                 openNode.hCost = node.hCost;
                             }
                         }
-                    }
-                    else
+                    } else
                         open.add(node);
                 }
             }
@@ -138,6 +154,10 @@ public class Pathfinding implements Runnable
         return path;
     }
 
+    /**
+     * Calculation of cost for nodes
+     */
+
     private int Cost(Vector2D startingPosition, Vector2D nodePosition)
     {
         int x = Math.abs(startingPosition.x - nodePosition.x);
@@ -145,6 +165,9 @@ public class Pathfinding implements Runnable
         return x + y;
     }
 
+    /**
+     * Recurency form an output path for algorithm
+     */
     private void PrintWay(Node finishNode)
     {
         path.add(finishNode.position);
