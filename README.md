@@ -39,5 +39,6 @@ Dla ułatwienia dane polecenia zostały zawarte w skrypcie `run.sh`.
 
 
 ## Dokumentacja
-Całość dokumentacji została wygenerowana w folderze `docs`.
+[Link do dokumentacji](https://goorkamateusz.github.io/JavaSnake/)
+Dokumentacja wygenerowana za pomocą `javadoc`.
 
