@@ -1,32 +1,43 @@
-# E-Media
+# JavaSnake
+Klasyczna gra snake z wykorzystaniem algorytmu A* oraz architekturą inspirowaną silnikiem Unity. Zaimplementowana w środowisku Java.
+
 Projekt w ramach kursu Platformy Programistyczne .NET i Java na specjalności Technologie Informacyjne w Automatyce.
 
+![](docs/img/Gameplay.gif)
 
 ## Spis Treści
-- [E-Media](#e-media)
+- [JavaSnake](#javasnake)
   - [Spis Treści](#spis-treści)
   - [Autorzy](#autorzy)
-  - [Getting Started](#getting-started)
-    - [Folder Structure](#folder-structure)
-    - [Dependency Management](#dependency-management)
+  - [Budowa aplikacji i uruchomienie](#budowa-aplikacji-i-uruchomienie)
+  - [Opis gry](#opis-gry)
+  - [Dokumentacja](#dokumentacja)
 
 
 ## Autorzy
-- Michał Więcek,
-- Mateusz Górka
+- [Michał Więcek](https://github.com/wiecek1873),
+- [Mateusz Górka](https://github.com/goorkamateusz/)
 
 
-## Getting Started
+## Budowa aplikacji i uruchomienie
+Aplikację można zbudować oraz uruchomić za pomocą poleceń:
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+```sh
+javac src/*.java
+java -classpath src JavaSnake
+```
 
-### Folder Structure
+Dla ułatwienia dane polecenia zostały zawarte w skrypcie `run.sh`.
 
-The workspace contains two folders by default, where:
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Opis gry
+- `zielony wąż` - gracz;
+- `niebieskie węże` - AI, przeciwnicy;
+- `czarne punkty` - przeszkody;
+- `czerwone punkty` - owoce (wąż zdobywa punkt);
+- `różowe punkty` - płazy (uciekający cel, wąż zdobywa 2 punkty);
 
-### Dependency Management
 
-The `JAVA DEPENDENCIES` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-pack/blob/master/release-notes/v0.9.0.md#work-with-jar-files-directly).
+## Dokumentacja
+Całość dokumentacji została wygenerowana w folderze `docs`.
+
