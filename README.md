@@ -12,6 +12,7 @@ Projekt w ramach kursu Platformy Programistyczne .NET i Java na specjalności Te
   - [Budowa aplikacji i uruchomienie](#budowa-aplikacji-i-uruchomienie)
   - [Opis gry](#opis-gry)
   - [Dokumentacja](#dokumentacja)
+    - [Schemat klas UML](#schemat-klas-uml)
 
 
 ## Autorzy
@@ -40,5 +41,10 @@ Dla ułatwienia dane polecenia zostały zawarte w skrypcie `run.sh`.
 
 ## Dokumentacja
 [Link do dokumentacji](https://goorkamateusz.github.io/JavaSnake/)
+
 Dokumentacja wygenerowana za pomocą `javadoc`.
 
+### Schemat klas UML
+![schemat-uml](docs/img/uml-documentation.png)
+
+Pełnych wymiarów zdjęcie można otworzyć [tutaj](docs/img/uml-documentation.png).
