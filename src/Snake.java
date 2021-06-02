@@ -149,6 +149,8 @@ public abstract class Snake extends GameObject
                 lastPosition = tmp;
             }
 
+            control();
+
             if (newPartsNumber > 0)
             {
                 SnakePart newPart = new SnakePart(lastPosition, color);
