@@ -21,17 +21,20 @@ public class Gameplay extends GameBase
         Snake snake = new SnakeAI(board);
         initialize(snake);
 
-        initialize(new SnakeAI(board));
-        initialize(new SnakeAI(board));
-        initialize(new SnakeAI(board));
-        initialize(new SnakeAI(board));
+        // initialize(new SnakeAI(board));
+        // initialize(new SnakeAI(board));
+        // initialize(new SnakeAI(board));
+        // initialize(new SnakeAI(board));
 
-        Snake player = new SnakePlayer(board);
-        initialize(player);
+        // Snake player = new SnakePlayer(board);
+        // initialize(player);
 
         FruitGenerator fruitGenerator = new FruitGenerator(board, 20, 1);
         initialize(fruitGenerator);
 
+        initialize(new Frog(board));
+        initialize(new Frog(board));
+        initialize(new Frog(board));
         initialize(new Frog(board));
         initialize(new Frog(board));
         initialize(new Frog(board));

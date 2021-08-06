@@ -16,7 +16,7 @@ public abstract class Snake extends GameObject
 
     protected int points = 0; // todo licznik do punktów
 
-    protected final int TIMER_BASE_VALUE = 150;
+    protected final int TIMER_BASE_VALUE = 50;
 
     /**
      * Constructor pass reference to board.
